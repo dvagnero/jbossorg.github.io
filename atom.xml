@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://www.jboss.org/blogs.html</id>
+    <title>JBoss Blogs</title>
+    <updated>2021-02-05T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://www.jboss.org/blogs.html"/>
+    <subtitle>aggregation of various JBoss blogs</subtitle>
+    <icon>https://www.jboss.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Eclipse Vert.x 4.0.2 released!]]></title>
+        <id>https://vertx.io/eclipse-vert-x-4-0-2</id>
+        <link href="https://vertx.io/eclipse-vert-x-4-0-2"/>
+        <updated>2021-02-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[Eclipse Vert.x version 4.0.2 has just been released. It fixes quite a few bugs that have been reported by the community.]]></content>
+        <author>
+            <name>Julien Viet</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[4 Easy Steps for Migrating Projects to OpenShift Container Platform]]></title>
+        <id>http://feedproxy.google.com/~r/schabell/jboss/~3/1Gk5nA3g16M/4-easy-steps-for-migrating-projects-to-openshift-container-platform.html</id>
+        <link href="http://feedproxy.google.com/~r/schabell/jboss/~3/1Gk5nA3g16M/4-easy-steps-for-migrating-projects-to-openshift-container-platform.html"/>
+        <updated>2021-02-03T06:00:00.001Z</updated>
+        <content type="html"><![CDATA[ This article is a walk through how to take an existing project, in this case I'm using a business automation project, and migrating from running locally on an application server to deploying in a container on OpenShift.    The idea is to share four easy steps taking you on a journey from local to cloud native container based application deployments. The base project was an old demo project I had running on JBoss BPM Suite a few years back, polished up and now running on Red Hat Process Automation Manager using Red Hat Enterprise Application Server (EAP).  The project will be outlined, followed by installing it locally on your developer machine. After that, you'll need to install the OpenShift Container Platform and I'll show you how using CodeReady Containers. This puts a container platform running on your developer machine, at which point it's a matter of installing the provided business automation operator and pushing the existing project without any changes into the container. You can observe it deploying right on your OpenShift web console or explore the details with the command line client.  Ready to get started?   STEP 1 - EXAMINING THE PROJECT  This article brings back an old demo project, refreshed and polished up now, that is exploring how to use process automation to implement a signal.   The idea is that in this process project we are automating a loan request process where any loan up to 10,000 with a customer over 18 years old is automatically approved. The paths options can be that you might need a loan officer to physically review a loan if it's over 10,000 or it faces auto rejection if the application is made by someone younger than 18 years old.  Of these three paths through the process, our fictitious marketing department wants to be notified if it's an existing customer so that they can take action, possibly marketing other services to that customer. The problem is you only want to notify the marketing department if you are sure it's a customer, and that would be anyone over 18 years of age. On top of that you want to pass on as much information as possible on the customer ot the marketing department, so you want to notify them at the end the route taken through the process.    The process is not that complicated, and if you trace visually you can see the top end node is for auto rejected, the middle end node is if the loan was reviewed and approved, and the bottom end node is for reviewed applications that get rejected.     The interesting part is at the start of the process where as soon as an application is submitted, it splits to start processing on one route and to wait in a signal event node. If we submit an application that is not auto rejected, it's going to show us that it's waiting on a user review by the loan officer (red outlined node) and waiting to see if it's going to receive a signal (red outlined event node) to add a marketing contact.    That wait state is only going to move onwards if we send a signal later in the process, at which time it will trigger the signal event node to proceed onwards. In this next image you see that we approved the loan and that the signal was sent in the final node before ending and the marketing contact was processed.       While the initial requirements were to only signal marketing for customer contact, they later decided to track under age applications to offer them the chance to engage with potential future customers. This means we added the signalling to the last reporting node in the reject path.   Let's get you started installing this on your local machine and exploring how all this works.     STEP 2 - INSTALLING LOCALLY  The installation is pretty straightforward and the installation script can be run after unzipping as it provides warnings for any missing software including links to download for free. Just follow the console output instructions until it completes:   1.    2. Add products to installs directory, see installs/README for details and     links.   3. Run 'init.sh' or 'init.bat' file. 'init.bat' must be run with Administrative     privileges, follow displayed instructions to start demo.  After start up of the application server you can log in to (for admin and Loan Officer roles use u:erics / p:redhatpam1!)  Follow the listed in the readme file.      STEP 3 - INSTALLING CONTAINER PLATFORM   The easiest way to install a constainter platform on your local developer machine that is exactly like the one you work with in organisations using the various public clouds, is to use the OpenShift Container Platform as provided by the CodeReady Containers product. It's available for a free download and I've outlined the few easy steps needed to , so head on over there and install it now.      STEP 4 - INSTALLING TO CONTAINER  The final step is now to install both the OpenShift provided operator for business automation and then push this existing project into the container. This can be done by using this project I've set up for you that automates most of it.   1. Ensure you have installed OpenShift with  which was covered in the previous     section.   2.    3. Run 'init.sh' or 'init.bat' file. 'init.bat' must be run with Administrative     privileges.  Now log in to the project to start exploring how a process signal to marketing works (the address will be generated by the init script):   * CodeReady Container example: ( u:erics / p:redhatpam1! )   That's all there is to it, now you can explore the installation script to see how this was done, explore the OpenShift web console to view the application container setup and deployment, and more.      WHAT'S NEXT?  Now that you've got a roadmap to migrating your existing projects to a container platform, and not a trivial project either, you can start exploring more of the available operators on your way to full cloud native development.   Want to build more process automation projects from scratch? Try this hands-on .           ]]></content>
+        <author>
+            <name>Eric D. Schabell</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Getting Started with AMQP in your Quarkus application]]></title>
+        <id>https://quarkus.io/blog/getting-started-amqp/</id>
+        <link href="https://quarkus.io/blog/getting-started-amqp/"/>
+        <updated>2021-02-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[AMQP 1.0 is a standard for passing messages between applications or organizations. It connects systems, feeds business processes with the information they need, and reliably handles communication between systems. AMQP is a robust and mature protocol widely used in event-driven applications. This post is the equivalent of the Kafka getting...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quarkus Insights Q&A]]></title>
+        <id>https://quarkus.io/blog/quarkus-insights-qanda/</id>
+        <link href="https://quarkus.io/blog/quarkus-insights-qanda/"/>
+        <updated>2021-02-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[On the next Quarkus Insights episode, we are trying something new. We will cover the most often asked questions we have seen and any question tagged with #quarkusinsights on our various social media presences: Twitter, Facebook, LinkedIn or on the youtube event directly. If you have a question about Quarkus...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quarkus Newsletter #9]]></title>
+        <id>https://quarkus.io/blog/quarkus-newsletter-9/</id>
+        <link href="https://quarkus.io/blog/quarkus-newsletter-9/"/>
+        <updated>2021-01-29T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[We took a little break, but now another Newsletter round of stories found! For the news below - give it a read and if you feel something is missing or have an article coming out for future Quarkus Newsletter install the bookmarklet on your laptop and phone to easily submit...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 28 January 2021]]></title>
+        <id>https://www.jboss.org/posts/weekly-2021-01-28.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2021-01-28.html"/>
+        <updated>2021-01-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="quarkus, infinispan, openshift, camel, kafka, wildfly, keycloak">
+      <h1>This Week in JBoss - 28 January 2021</h1>
+      
+    <p class="preamble"></p><p>Hello! Welcome to another edition of the JBoss Editorial that brings you news and updates from our community.</p><p></p>
+<div class="sect1">
+<h2 id="_releases">Releases!!</h2>
+<div class="sectionbody">
+<p>Infinispan 12 release, codenamed <code>Lockdown</code>, brings a ton of new features and improvements.
+Indexing and querying capabilities have seen a number of improvements with the help of Hibernate Search integration.
+ProtoStream marshalling is upgraded with a new <code>@ProtoAdapter</code> annotation that lets you easily integrate third-party classes.
+It’s a pretty elegant solution to what could present itself as a real headache for developers.
+Speaking of marshalling improvements, Infinispan 12 also makes your life easier by automatically generating and registering <code>SerializationContextInitializer</code> implementations to marshall user types.
+Also notable is the SPI for cross-site replication merge conflicts, which continues on the brilliant work that team has done to provide a solution for ensuring data integrity.
+There’s a lot going on in Infinispan 12 and probably too much to try and sum up here so why not head over and read all the details in the <a href="https://infinispan.org/blog/2021/01/25/infinispan-12-final">Infinispan 12.0.0.Final Announcement</a>.</p>
+<p>Congratulations to the entire Infinispan team on all the hard work.</p>
+<p><a href="https://quarkus.io/blog/quarkus-1-11-0-final-released/">Quarkus 1.11</a> is here!
+This release brings you RESTEasy Reactive, which is a new JAX-RS implementation for writing RESTful services.
+Quarkus 1.11 also introduces the Dev UI so you can quickly visualize all your loaded extensions, access docs, and more.
+Of course there are other things in Quarkus 1.11 but RESTEasy Reactive and the Dev UI look to be quite promising indeed.</p>
+<p>The Quarkus team keep things rolling with the release of <a href="https://quarkus.io/blog/intellij-quarkus-tools-1.3.0/">Quarkus Tools for IntelliJ 1.3.0</a> that adds codestarts to the Quarkus project wizard.</p>
+<p>link:https://www.keycloak.org//2021/01/keycloak-1202-released.html[Keycloak 12.0.2 is now available too!
+Head on over to their site and check it out.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wildfly_bootable_jars_on_openshift">WildFly Bootable JARs on OpenShift</h2>
+<div class="sectionbody">
+<p>Emmanuel Hugonnet <a href="https://www.wildfly.org//news/2021/01/24/odo-bootable-jar/">shows you how to use WildFly’s bootable JAR feature</a> and the <code>odo</code> CLI tool to easily build and deploy applications on OpenShift.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started_with_apache_kafka_in_quarkus">Getting Started with Apache Kafka in Quarkus</h2>
+<div class="sectionbody">
+<p>Clement Escoffier details how to get you started with Apache Kafka in Quarkus applications in less than 10 steps using Reactive Messaging.
+Clement provides a GitHub repository with the code too so take a look at his <a href="https://quarkus.io/blog/getting-started-kafka/">Getting Started with Apache Kafka</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_easing_the_keycloak_integration_tests_in_kie_server_with_testcontainers">Easing the Keycloak integration tests in Kie Server with Testcontainers</h2>
+<div class="sectionbody">
+<p>Over at the Kie blog, Gonzalo Muñoz Fernández demonstrates <a href="https://blog.kie.org/2021/01/keycloak-integration-tests-in-kie-server-with-testcontainers.html">using Testcontainers to quickly and easily create integration tests with Kie Server and Keycloak</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resteasy_wadl_module_in_wildfly">RESTEasy WADL Module in WildFly</h2>
+<div class="sectionbody">
+<p>Wei Nan gives a straightforward example of <a href="https://resteasy.github.io/2021/01/18/deploy-resteasy-wadl-to-wildfly/">deploying the RESTEasy WADL module</a> into WildFly.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quarkus_insights_hibernate_search_6">Quarkus Insights: Hibernate Search 6</h2>
+<div class="sectionbody">
+<p>Have you subscribed to the <a href="https://www.youtube.com/c/Quarkusio/videos">Quarkusio YouTube</a> channel yet?</p>
+<p>If not, head over and take a look.
+There are always interesting discussions and cool speakers.</p>
+<p>One recent video that I really enjoyed, and is timed well with the release of Infinispan 12, is <a href="https://www.youtube.com/watch?v=hwxWx-ORVwM">Episode #32</a> where Yoann Rodière joins the lads and introduces us to <a href="https://hibernate.org/search/releases/6.0/#whats-new">Hibernate Search 6</a>.
+Yoann goes through all the exciting new stuff in Hibernate Search and explains how the search API gives you accurate and flexible full-text search for applications to overcome the limitations that come from SQL queries.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apache_camel_and_java_flight_recorder">Apache Camel and Java Flight Recorder</h2>
+<div class="sectionbody">
+<p>Claus Ibsen’s recent <a href="http://www.davsclaus.com/2021/01/apache-camel-38-and-java-flight-recorder.html">Apache Camel 3.8 and Java Flight Recorder</a> post breaks down how you can capture work steps with Flight Recorder to diagnose Apache Camel and improve performance.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_red_hat_developer_highlights">Red Hat Developer Highlights</h2>
+<div class="sectionbody">
+<p>In another Flight Recorder post, Andrew Azores gives us a great tutorial on using <a href="https://developers.redhat.com/blog/2021/01/25/introduction-to-containerjfr-jdk-flight-recorder-for-containers/">JDK Flight Recorder for containers</a> running on OpenShift.</p>
+<p>Finally, there is a great DevNation Tech Talk by Sebastien Blanc and Edson Yanaga on <a href="https://developers.redhat.com/devnation/tech-talks/kubectl-quarkus">Building kubectl plugins with Quarkus</a>.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/don-naro.png"></pfe-avatar>
+        <span>Don Naro</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Don Naro</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/don-naro</uri>
+        </author>
+        <category label="quarkus" term="quarkus"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="openshift" term="openshift"/>
+        <category label="camel" term="camel"/>
+        <category label="kafka" term="kafka"/>
+        <category label="wildfly" term="wildfly"/>
+        <category label="keycloak" term="keycloak"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quarkus 1.11.1.Final released - Bugfixes]]></title>
+        <id>https://quarkus.io/blog/quarkus-1-11-1-final-released/</id>
+        <link href="https://quarkus.io/blog/quarkus-1-11-1-final-released/"/>
+        <updated>2021-01-27T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[1.11.1.Final is a maintenance release fixing bugs and improving the documentation. Thanks to all the contributors who reported issues and provided reproducers: it allowed us to make steady progress on fixing issues. Also a big thanks to all the contributors providing pull requests, be they for the code or the...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Infinispan 12.0.0.Final]]></title>
+        <id>/blog/2021/01/25/infinispan-12-final</id>
+        <link href="/blog/2021/01/25/infinispan-12-final"/>
+        <updated>2021-01-25T12:00:00.000Z</updated>
+        <content type="html"><![CDATA[INFINISPAN 12.0.0.FINAL  Dear Infinispan community,  we hope you, your families and colleagues are doing well in these trying times. We’ve been working hard over the last few months to bring you a brand-new release of Infinispan. Infinispan 12, aptly codenamed comes loaded with a number of notable features as well as the usual slew of fixes and cleanups.   INDEXING AND SEARCH  Our good friends over at have been working hard on delivering an awesome and have also helped us integrate it in Infinispan. This is not just an upgrade: we have taken the opportunity to evolve our indexing configuration:   * Upgraded to Hibernate Search 6, that brings support for Lucene 8 indexes   * Better indexing performance out of the box   * New statistics API, covering indexed, non-indexed and hybrid queries   * Introduced strong typed indexing configuration that replaces the string    key/value properties.  Head over to the much improved .   CONFIGURATION  We introduced a couple of improvements to the configuration API:   * Runtime creation of templates: the remote APIs now allow creating    configuration templates.   * Configuration Fragments: when creating caches and templates via the remote    APIs, you no longer need to wrap their configuration in the    <infinispan><cache-container>… </cache-container></infinispan> elements, but    you can simply use the cache definition directly, e.g.: <distributed-cache    name=”mycache”/>   MARSHALLING   * A new @ProtoAdapter annotation has been added to ProtoStream for generating    .proto files and marshallers for third party classes   * SerializationContextInitializer implementations are automatically discovered    and configured via Java ServiceLoader.   * User types are now fully isolated from Infinispan internal context.   CROSS SITE REPLICATION  Our work on improving asynchronous cross-site replication continues with the following improvements:   * a new SPI for merging conflicting values: if two (or more) write operations    happen simultaneously in different sites, the conflict is detected and the    SPI is invoked to merge the values. Merge policies determine which action    will be taken in case of conflict between updates of different sites. Some    predefined merge policies can be found .   * Exponential back-off added for network failures: ff the network between the    sites disconnects, Infinispan will retry less frequently before giving up. It    helps reduce the CPU utilization.   * Automatic disconnection if the cache configuration does not exist or is    incorrect: if Infinispan tries to backup to a remote site and the remote site    doesn’t have the cache defined, the remote site is automatically taken    offline.   * Internal code improvements: the code is now non-blocking to reduce the CPU    usage.  See for more information.   SERVER  BACKUP/RESTORE  A backup archive, that contains container resources (caches, cache templates, counters, Protobuf schemas, server tasks) currently stored in the cache manager, can now be created. The backup archive can then be used to restore Infinispan clusters content after a restart or migration. This feature is exposed via the REST endpoint, however backups can also be created via the Infinispan CLI or with Backup/Restore CRs when using the operator.  CREDENTIAL STORES  To protect sensitive text strings, such as passwords, in the server configuration, you can add them to a credential keystore and reference them. You can then configure the server to decrypt passwords for establishing connections with services such as databases or LDAP directories.  <security>    <credential-stores>       <credential-store name="credentials" path="credentials.pfx">          <clear-text-credential clear-text="secret"/>       </credential-store>    </credential-stores> </security> <data-sources>    <data-source name="postgres" jndi-name="jdbc/postgres">       <connection-factory driver="org.postgresql.Driver"                       username="dbuser"                       url="jdbc:postgresql:database">   <credential-reference store="credentials" alias="dbpassword"/>       </connection-factory>    </data-source> </data-sources>  MULTIPLE ENDPOINTS  The server now allows definining multiple single-port endpoints, each one mapped to a separate socket binding and with its own security realm. This is useful if you want to expose an admin endpoint on an internal, management-only network as well as an endpoint for application uses.  OPTIONAL AUTHENTICATION FOR METRICS ENDPOINT  Previously, the Prometheus-compatible metrics endpoint, published at , used the same security semantics as the single port endpoint. It’s now possible to allow anonymous connections to this endpoint, to simplify integration with your Prometheus scraper.  CUSTOM SERVER PATHS  It’s now possible to start the server by overriding each of the paths individually.  server.sh -Dinfinispan.server.config.path=... \           -Dinfinispan.server.log.path=... \           -Dinfinispan.server.data.path=... \           -Dinfinispan.server.lib.path=...  Moreover, the server library path now supports multiple directories which will be scanned recursively for both JARs and bare resources such as property files.  NEAR CACHES WITH BLOOM FILTER  The remote client has near caches that allow for values retrieved from the remote server to be cached locally on the client. This works great for workloads that are primarily read only. However, to provide consistency we have to listen to remote modification/removal events from the server, which can make work loads with a lot of writes not scale. As such we are introducing bloom filter assisted notifications that will reduce the amount of modification/removal events received from the server and thus would increase the scalability of write heavy applications using the near cache. This needs to be enabled in addition to near caching, which can be done via the client configuration xml or programmatic classes.  DISTRIBUTED TRACING  You can now integrate Infinispan’s server with OpenTracing to perform distributed tracing.   * Only track Hot Rod cache write requests (i.e. no counters, multimap etc.)   * Select the OpenTracing implementation via the    infinispan.opentracing.factory.class and    infinispan.opentracing.factory.method system properties.   * An OpenTracing implementation (is not included: instead it must be added to    the server/lib directory (for example: the Jaeger OpenTracing    implementation).   CLI  BENCHMARK TOOL  The CLI now includes a small convenience benchmark tool which allows you to measure latency and throughput of an Infinispan server using a specific configuration. You can use this when sizing resources based on your requirements.  NATIVE BUILD  The CLI is available as a native build, thanks to . The binaries for Linux, Mac and Windows can be found .  KUBERNETES CLI  When installing the native CLI as kubectl-infinispan, the CLI gains additional functionality to control the Infinispan operator, simplifying many operations. This includes the ability to install and uninstall the operator, create and delete Infinispan clusters and obtain information about various resources.  CONFIGURATION IMPROVEMENTS  The CLI can persist some configuration properties which you wish to apply to all your sessions:   * autoconnect-url: Specifies the URL to which the CLI automatically connects on    startup.   * autoexec: Specifies the path of a CLI batch file to execute on startup.   * truststore: Specifies the path of a truststore to validate server    certificates.   * trustall: Specifies whether to trust all server certificates without    supplying a trust store.   CONSOLE  This version includes a new version of the web console, including mainly fixes, but also the ability to finally view cache entries and their details:       CLOUD EVENTS INTEGRATION  The Infinispan integration is a new experimental module which converts Infinispan events to CloudEvents events and sends them to a Kafka topic in structured mode. This allows Infinispan be further used as a Knative source. There are two broad kinds of events:   * Cache entry modifications: created, updated, removed, expired   * Audit events: user login, access denied   IMAGES   * A natively compiled version of the CLI is now available as a container via    the image.   * The server images have also added support for configuring zero-capacity as    well as allowing JGroups properties to be overridden at runtime.   OPERATOR  The operator continues to improve and evolve so that installing and managing Infinispan clusters on Kubernetes/OpenShift is a breeze:   * Data Backup and Restore are available via CR.   * Cross site improvements:         * Access to remote cluster k8s API is no longer mandatory.         * Manual configuration.         * Namespaces can be different.         * Multinamespace and global installation mode.   * TLS can be disabled via CR configuration, even in environments where    certificate management is built-in (e.g. OpenShift).   * Support for the Quarkus native Infinispan image.   * Anti-affinity configuration.   DOCUMENTATION   * Documentation for configuring cluster transport was overhauled in Infinispan    12. We made numerous changes, based on direct feedback from the community, to    our JGroups content. We also added details on how to configure SYM_ENCRYPT    and ASYM_ENCRYPT protocols, which were previously available only in the    JGroups documentation set.   * You can find new chapters on Configuring Cluster Transport in the Server    Guide and Embedding Infinispan Guide. The details for JGroups encryption are    also available in the guide for Securing Infinispan.   * Off-Heap configuration has often been misunderstood and we’ve had several    questions about what it actually means to store data in native memory outside    the JVM heap. To address these questions, and spell out some of the benefits    and potential downsides of using off-heap storage, we’ve added some    conceptual information to our Configuration Guide.   * Our documentation on Configuring Infinispan to Marshall Java Objects is also    updated in an effort to improve clarity and be more task-oriented.   * Along with all the refactoring and improvements that have been made to the    Search API, we’ve made some improvements to our documentation for Querying    Values in Infinispan Caches.   * Lastly, we noticed that the documentation for Clustered Locks was a little    out of date and potentially confusing so we spent time to rework that content    to make sure it’s accurate.  As always, the Infinispan team hope you find the documentation useful and complete. We’d love to hear from you and really value feedback from our community. If you think something is missing from the docs or spot a correction, please get in touch and we’ll get on it straight away.   OTHER   * We have decided to adopt in Infinispan, both in our code and in our    documentation. For example, Infinispan’s way of configuring which classes are    allowed to be marshalled/unmarshalled is now called allow list. If you find    other places where we are using inappropriate terms, please don’t hesitate to    contact us.   * We’ve added some UI writing guidelines and Infinispan terminology to our    Contributor’s Guide in an effort to create a consistent user experience.   * As you may have noticed, our website has gone through some extensive    redesign.   * Bye bye OSGI (it even rhymes !): we’ve removed support for OSGi since it was    quite a maintenance burden.   RELEASE NOTES AND UPGRADING  You can look at the detailed to see what has changed since CR1. If you are upgrading from a previous version of Infinispan, please checkout our .   WHAT’S NEXT ?  Our next release, 12.1, will be a quick one, mostly focused on polishing and small API improvemnets, before we move on to bigger things. As usual, look out for blog postings about upcoming highlights. If you’d like to contribute, just get in touch.]]></content>
+        <author>
+            <name>Tristan Tarrant</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Developping on OpenShift with WildFly bootable jar]]></title>
+        <id>https://wildfly.org//news/2021/01/24/odo-bootable-jar/</id>
+        <link href="https://wildfly.org//news/2021/01/24/odo-bootable-jar/"/>
+        <updated>2021-01-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[With the bootable jar feature of WildFly it is now easier to build applications for the cloud. You can trim the server to reduce its footprint which makes this a perfect candidate to build microservices on the cloud. Let’s discover how to combine this feature to build and deploy applications on OpenShift.   USING ODO  is a fast, iterative, and straightforward CLI tool for developers who write, build, and deploy applications on Kubernetes and OpenShift. odo abstracts away complex Kubernetes and OpenShift concepts for the developer.   INSTALLING ODO  Download the binary from according to your target environment and follow the instructions from . Please note that you need at least the version 2.0.3 to use the devfile we will be using in the rest of this article.   PREPARING OUR CLOUD ENVIRONEMENT  During this article we will use the 'free' OpenShift that you can have with your account on website. Once you have your cloud environment we need to connect to it from odo.  odo login https://api.sandbox.x8i5.p1.openshiftapps.com:6443 --token=sha256~################################# Connecting to the OpenShift cluster  Logged into "https://api.sandbox.x8i5.p1.openshiftapps.com:6443" as "ehugonne1" using the token provided.  You have access to the following projects and can switch between them with 'odo project set <project-name>':    * ehugonne1-code     ehugonne1-dev     ehugonne1-stage  Using project "ehugonne1-code".   CREATING THE NEW PROJECT  First we need to create a namespace in OpenShift:  odo project create microprofile-config  Now we can create our project using the microprofile-config quickstart sample project.  mkdir odo-demo cd odo-demo odo create java-wildfly-bootable-jar --starter=microprofile-config Validation  ✓  Checking devfile existence [19047ns]  ✓  Creating a devfile component from registry: DefaultDevfileRegistry [31878ns]  ✓  Validating devfile component [153099ns]  Starter Project  ✓  Downloading starter project microprofile-config from https://github.com/wildfly/quickstart.git [1m]  Please use `odo push` command to create the component with source deployed  This will create the microprofile-config quickstart Apache Maven project with a devfile.yaml that describe how the project will be built and run on OpenShift. This devfile is the entry point of our whole project, you may think of it as the pom.xml for the cloud. They are fully described on . Let’s take a quick look at the devfile and their main entry points. I’ll pass the starterProjects which are the quickstarts you can select when creating your initial project. First we can see that it defines two components:   * a jaeger component that will provide an OpenTracing compatible server so that    Eclipse MicroProfile OpenTracing applications can send traces to.   * a wildfly component which is a simple Java image with Apache Maven where the    application will be built and run. It exposes only the 8080 port for HTTP.   * a m2-repository component which is a persistent volume that we will be using    to avoid losing all the downloaded artefacts between each restart of the    wildfly container.  Then we have the list of commands available to build, debug and run our application:   * build: this will compile and build a bootable jar from the sources.   * run: this will start and run the bootable jar.   * debug: this will start and run the bootable jar in debug mode.   * dev-build: this will compile and build a bootable jar from the sources so    that it can be used in developper mode which means the server won’t get    rebuilt nor restarted when the application is modified.   * dev-run: this will start and run the bootable jar in developper mode which    means the server won’t get rebuilt nor restarted when the application is    modified.   * dev-debug: this will start and run the bootable jar in debug developper mode    which means the server won’t get rebuilt nor restarted when the application    is modified.   * watch-build: this will do nothing except print a nice message.   * watch-run: this will start the bootable jar in watch mode.   * watch-debug: this will start the bootable jar in watch mode with debug on.   BUILDING AND RUNNING THE APPLICATION  So let’s just build and start our application  odo push  Validation  ✓  Validating the devfile [290197ns]  Creating Kubernetes resources for component java-wildfly-bootable-jar  ✓  Waiting for component to start [29s]  Applying URL changes  ✓  URL tracing-ui: http://tracing-ui-java-wildfly-bootable-jar-ehugonne1-code.apps.sandbox.x8i5.p1.openshiftapps.com/ created  ✓  URL http: http://http-java-wildfly-bootable-jar-ehugonne1-code.apps.sandbox.x8i5.p1.openshiftapps.com/ created  Syncing to component java-wildfly-bootable-jar  ✓  Checking files for pushing [1ms]  ✓  Syncing files to the component [4s]  Executing devfile commands for component java-wildfly-bootable-jar  ✓  Executing watch-build command "echo 'It's watcher mode Baby !!!''" [2s]  ✓  Executing watch-run command "mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.arguments=\"-b=0.0.0.0\" org.wildfly.plugins:wildfly-jar-maven-plugin:dev-watch -e -DskipTests", if not running [2s]  Pushing devfile component java-wildfly-bootable-jar  ✓  Changes successfully pushed to component  You can get the url to access your application with  oc get route java-wildfly-bootable-jar  Now we can access the application on this URL.   BUILDING AND DEBUGGING THE APPLICATION IN DEVELOPPER MODE  To develop our application we provide a set of commands in to get feedbacks more quickly than with the default commands.  Important  The developper mode will only provision the server on the first build. That means that if you want to change the layers or the configuration of the server you will need to delete your application and push it again.  So let’s start our server in developper mode with debug enabled.  odo push --debug --build-command dev-build --debug-command dev-debug  Validation  ✓  Validating the devfile [165733ns]  Creating Kubernetes resources for component java-jboss-eap-xp-bootable-jar  ✓  Waiting for component to start [15s]  Applying URL changes  ✓  URL tracing-ui: http://tracing-ui-java-jboss-eap-xp-bootable-jar-microprofile-config.apps-crc.testing/ created  ✓  URL http: http://http-java-jboss-eap-xp-bootable-jar-microprofile-config.apps-crc.testing/ created  Syncing to component java-jboss-eap-xp-bootable-jar  ✓  Checking files for pushing [2ms]  ✓  Syncing files to the component [825ms]  Executing devfile commands for component java-jboss-eap-xp-bootable-jar  ✓  Executing dev-build command "mvn -Pbootable-jar -Dinsecure.repositories=WARN -Dmaven.repo.local=/home/jboss/.m2/repository -Dmaven.test.skip=true -Ddev package" [11m]  ✓  Executing dev-debug command "mvn -Pbootable-jar -Dinsecure.repositories=WARN -Dwildfly.bootable.arguments=\"-b=0.0.0.0\" -Dwildfly.bootable.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n\" -Dmaven.repo.local=/home/jboss/.m2/repository wildfly-jar:dev", if not running [1s]  Pushing devfile component java-jboss-eap-xp-bootable-jar  ✓  Changes successfully pushed to component  If we edit the source code and push our changes you can see that the deployment is quicker.  Now let’s try to debug our application. First we need to create a tunnel to access the listening debug port on our application, so in a new terminal we need to execute:  odo debug port-forward -l 8787 Started port forwarding at ports - 8787:5858  Now we can connect to debug our application on port 8787 with our IDE and debug as usual. Quite simple is’nt it ?   USING THE WATCH MODE  Now that we managed to build, run and debug our application on OpenShift we still need to execute commands to push our changes to the cloud. It would be nice to just have things updated automatically. odo provides a nice watch command that will push changes to OpenShift. But the bootable maven plugin offers also a watch mode that will have it recompile the application and redeploy it automatically when the code change. So let’s take advantage of those two modes. First we need to start our application in debug and watch mode:  odo push --debug --build-command watch-build --debug-command watch-debug  Validation  ✓  Validating the devfile [34305ns]  Creating Kubernetes resources for component java-wildfly-bootable-jar  ✓  Waiting for component to start [21s]  Applying URL changes  ✓  URLs are synced with the cluster, no changes are required.  Syncing to component java-wildfly-bootable-jar  ✓  Checking file changes for pushing [1ms]  ✓  Syncing files to the component [4s]  Executing devfile commands for component java-wildfly-bootable-jar  ✓  Executing watch-build command "echo 'It's watcher mode Baby !!!''" [812ms]  ✓  Executing watch-debug command "mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.arguments=\"-b=0.0.0.0\" -Dwildfly.bootable.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n\" org.wildfly.plugins:wildfly-jar-maven-plugin:dev-watch -e", if not running [2s]  Pushing devfile component java-wildfly-bootable-jar  ✓  Changes successfully pushed to component  Now we can set odo in watch mode too:  odo watch Component is running in debug mode Please start port-forwarding in a different terminal Waiting for something to change in /home/ehsavoie/tmp/test  When you edit a file like src/main/resources/META-INF/microprofile-config.properties, you can see the following on the console:  File /home/ehsavoie/tmp/test/src/main/resources/META-INF/microprofile-config.properties changed Pushing files...  Validation  ✓  Validating the devfile [145787ns]  Creating Kubernetes resources for component java-wildfly-bootable-jar  ✓  Waiting for component to start [132ms]  Applying URL changes  ✓  URLs are synced with the cluster, no changes are required.  Syncing to component java-wildfly-bootable-jar  ✓  Checking file changes for pushing [1ms]  ✓  Syncing files to the component [994ms]  Executing devfile commands for component java-wildfly-bootable-jar  ✓  Executing watch-build command "echo 'It's watcher mode Baby !!!''" [808ms]  ✓  Executing watch-debug command "mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.arguments=\"-b=0.0.0.0\" -Dwildfly.bootable.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n\" org.wildfly.plugins:wildfly-jar-maven-plugin:dev-watch -e", if not running [851ms] Component is running in debug mode Please start port-forwarding in a different terminal Waiting for something to change in /home/ehsavoie/tmp/test  And of course since we used a debug command, you can connect your IDE on port 8787 and debug as usual.  So as we have seen, developping on OpenShift is now very easy and simple and almost as slick as local development. All the more so as you can add several containers on your pod. In the sample devfile that is provided you have a Jaeger Server that is running. Connecting to its web interface (exposed throught a route too), you can see the traces produced by our application.]]></content>
+        <author>
+            <name>Emmanuel Hugonnet</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Planned Security Features for WildFly]]></title>
+        <id>https://wildfly-security.github.io/wildfly-elytron/blog/planned-security-features-for-wildfly-23/</id>
+        <link href="https://wildfly-security.github.io/wildfly-elytron/blog/planned-security-features-for-wildfly-23/"/>
+        <updated>2021-01-22T00:00:00.000Z</updated>
+        <author>
+            <name>Farah Juma</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Apache Camel 3.8 and Java Flight Recorder]]></title>
+        <id>http://feedproxy.google.com/~r/ApacheCamel/~3/MAojxhqbNc0/apache-camel-38-and-java-flight-recorder.html</id>
+        <link href="http://feedproxy.google.com/~r/ApacheCamel/~3/MAojxhqbNc0/apache-camel-38-and-java-flight-recorder.html"/>
+        <updated>2021-01-20T11:35:00.002Z</updated>
+        <content type="html"><![CDATA[In the upcoming 3.8 release we have a new Camel component to integrate with Java Flight Recorder.  Camel is now capable of capturing "work steps" during startup that can be recorded with Java Flight Recorder. This can be used to better diagnose and find where your Camel applications may be slow to startup, for example due to a misbehaving component or custom user code.  The screenshot below shows a recording that has captured a Camel application that takes about 3 seconds to startup. Its a very tiny application so we expected it to be faster.      If we sort the events by duration in the JDK mission control, we can see that there are 4 events that take over 2 seconds.  The sequence is a sequence of the following step (sub step):  Initializing context -> Initializing routes -> Creating route (route2) -> Creating Bean processor (bean1)  What we can see is that the step with the highest depth is "Creating Bean processor" which takes about 2 seconds. This is the culprit of the bottleneck.  If we check the Camel route for where bean1 is in use, its in route2 at:          from("direct:slow")             .to("log:slow?level=OFF")             .bean(MyBean.class, "hello");  Here we can see the bean is using MyBean class, which we can then look at next:       public MyBean() {         // force slow startup         try {             LOG.warn("Forcing 2 sec delay to have slow startup");             Thread.sleep(2000);         } catch (Exception e) {             // ignore         }     }    Ah okay here is the problem. The bean is sleeping for 2 seconds. Yes of course this is a made up example, but it does affect the recording and allow us to find it via the JDK mission control tool.  We also offer a logging recorder where you can "see" some of the same information as in JDK mission control. However when using JDK mission control, you have the entire JFR recording that also captures alot of JVM information about CPU and memory use and whatnot.  To use Java Flight Recorder with Camel, all you have to do is to add camel-jfr on the classpath. Then Camel will auto-detect this and enable it. You can configure the recorder with various options which will be documented as part of the .  But for quickly finding startup bottlenecks for Camel applications then the logging recorder is a good start. The screenshot below shows the logging output, and as you can see from the red square we have identified where the "2 second" problem is.     The logging recorder comes out of the box in camel-core, and you can just use it by configuring:  camel.main.startup-recorder = logging  If you are using Camel Main, Camel Quarkus etc. And for Spring Boot, you can enable it with  camel.springboot.startup-recorder = logging  You can also set a custom recorder, or one of the out of the box implementation via Java code:  camelContext.adapt(ExtendedCamelContext.class)   .setStartupStepRecorder(...);     You can try this example () from the Camel Examples git repository. From command line you can run   mvn camel:run  And Camel will automatic capture a JFR recording and save to disk. The output of the file is shown in the log, which you can then open from JDK mission control.    ]]></content>
+        <author>
+            <name>Claus Ibsen</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quarkus 1.11 released - RESTEasy Reactive, Dev UI, and more!]]></title>
+        <id>https://quarkus.io/blog/quarkus-1-11-0-final-released/</id>
+        <link href="https://quarkus.io/blog/quarkus-1-11-0-final-released/"/>
+        <updated>2021-01-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[For each Quarkus release, it’s the same story: it comes with a ton of exciting new features and enhancements… But believe it or not, it’s true. 1.11 is an important milestone as it marks the beginning of two amazing new features: RESTEasy Reactive, Our Dev UI. But it also comes...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Getting Started with Apache Kafka in your Quarkus application]]></title>
+        <id>https://quarkus.io/blog/getting-started-kafka/</id>
+        <link href="https://quarkus.io/blog/getting-started-kafka/"/>
+        <updated>2021-01-19T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[Apache Kafka is a prevalent distributed streaming platform offering a unique set of characteristics such as message retention, replay capabilities, consumer groups, and so on. Kafka is highly scalable, fault-tolerant, and is becoming the spine of many modern systems. That being said, Kafka is not the only one out there,...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Keycloak 12.0.2 released]]></title>
+        <id>https://www.keycloak.org//2021/01/keycloak-1202-released.html</id>
+        <link href="https://www.keycloak.org//2021/01/keycloak-1202-released.html"/>
+        <updated>2021-01-19T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[To download the release go to .   ALL RESOLVED ISSUES  The full list of resolved issues are available in   UPGRADING  Before you upgrade remember to backup your database and check the for anything that may have changed.]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[RESTEasy WADL module deployment on Wildfly]]></title>
+        <id>https://resteasy.github.io/2021/01/18/deploy-resteasy-wadl-to-wildfly/</id>
+        <link href="https://resteasy.github.io/2021/01/18/deploy-resteasy-wadl-to-wildfly/"/>
+        <updated>2021-01-18T00:00:00.000Z</updated>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quarkus Tools for IntelliJ 1.3.0 released!]]></title>
+        <id>https://quarkus.io/blog/intellij-quarkus-tools-1.3.0/</id>
+        <link href="https://quarkus.io/blog/intellij-quarkus-tools-1.3.0/"/>
+        <updated>2021-01-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[We are very pleased to announce the 1.3.0 release of Quarkus Tools for IntelliJ. This release brings codestarts support in the Quarkus project wizard. Codestarts The Quarkus project wizard adds a new codestarts option, allowing to enable/disable codestarts generation for Quarkus extensions that support this feature. Moving Forward If you...]]></content>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[WildFly Bootable JAR 3.0 is released!]]></title>
+        <id>https://wildfly.org//news/2021/01/15/bootable-jar-3.0.Final-Released/</id>
+        <link href="https://wildfly.org//news/2021/01/15/bootable-jar-3.0.Final-Released/"/>
+        <updated>2021-01-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[The version 3.0 of the has been released.  For people who are not familiar with WildFly Bootable JAR, I strongly recommend that you read this that covers it in detail.  The new features that come in this release (in particular the dev-watch goal) have already been covered when the Beta1 release. The Bootable JAR contains a new that provides details on the dev-watch goal.  Since Beta1, the Bootable JAR have been evolved to use WildFly 22.0.0.Final that has just been .  In this blog post I will focus on the integration with . This integration is now possible thanks to the Keycloak Galleon feature-pack that is new in .   KEYCLOAK GALLEON FEATURE-PACK  The provides an OIDC client adapter by the means of a Galleon layer. The keycloak-client-oidc Galleon layer brings the OIDC keycloak subsystem (and associated JBoss modules) and configures the server security. For more information on the Keycloak Galleon feature-pack usage with WildFly, you can read the in the WildFly documentation.  Using the Bootable JAR Maven plugin, you can combine layers coming from multiple Galleon feature-packs.  In your plugin configuration it looks like:  <configuration>   <feature-packs>     <feature-pack>       <location>wildfly@maven(org.jboss.universe:community-universe)</location>     </feature-pack>     <feature-pack>        <location>org.keycloak:keycloak-adapter-galleon-pack:12.0.1</location>      </feature-pack>   </feature-packs>   <layers>     <layer>web-server</layer>      <layer>keycloak-client-oidc</layer>   </layers> ... </configuration>  You will notice that the <location> element is structured differently for the WildFly feature-pack and the Keycloak one.  The WildFly feature-pack is accessible from the Galleon community-universe. Retrieving the WildFly feature-pack from this universe allows us to not specify any version and get the latest one.  Since the Keycloak Galleon feature-pack is not registered inside an universe, you need to specify its Maven coordinates.  When building a Bootable JAR, the plugin retrieves the feature-packs from Maven repositories and provisions a server based on the set of Galleon layers.  You can follow the steps documented in this to secure a servlet deployed inside a Bootable JAR using Keycloak.   DEVELOPING ON OPENSHIFT WITH BOOTABLE JAR  We are currently working at defining dev files in order to make for a smooth and efficient development experience on OpenShift. Changes done in your local Maven project fire automatic re-build and re-deploy of your application in the remote OpenShift cluster POD.  To achieve this, we are leveraging the ODO source watching capabilities to push changes onto your OpenShift POD. dev-watch goal, that is running in the POD, takes over and automatically re-build/re-deploy your application.  Stay tuned!   KNOWN ISSUES  We have encountered an issue when using the dev-watch goal with the . You need to upgrade the plugin to 3.0.2.Final to allow for dev-watch to properly operate. The Maven command to use is: mvn wildfly-jar:dev-watch -Pbootable-jar -Dversion.wildfly-jar.maven.plugin=3.0.2.Final   TO CONCLUDE  If you have an interesting use-case, simple enough to be reduced to a simple example, and it is not covered by the , then feel free to one. We will be very happy to help you integrate your example in the project. Just ask!  Finally we would really appreciate that you keep us posted with your feedback and new requirements (that you can log as new ), this will help evolve the WildFly Bootable JAR experience in the right direction.  Thank-you!  JF Denise]]></content>
+        <author>
+            <name>Jean-François Denise</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[RESTEasy 4.6.0.Final is now available]]></title>
+        <id>https://resteasy.github.io/2021/01/14/resteasy-4.6.0.Final/</id>
+        <link href="https://resteasy.github.io/2021/01/14/resteasy-4.6.0.Final/"/>
+        <updated>2021-01-14T19:49:00.000Z</updated>
+        <author>
+            <name/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Automatic Self-Signed Certificate Generation with Elytron]]></title>
+        <id>https://wildfly-security.github.io/wildfly-elytron/blog/auto-self-signed-certificate-generation/</id>
+        <link href="https://wildfly-security.github.io/wildfly-elytron/blog/auto-self-signed-certificate-generation/"/>
+        <updated>2021-01-14T00:00:00.000Z</updated>
+        <author>
+            <name>Farah Juma</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[How to properly stop batch processing job and step in WildFly]]></title>
+        <id>https://wildfly.org//news/2021/01/14/batch-processing-stop-job-step/</id>
+        <link href="https://wildfly.org//news/2021/01/14/batch-processing-stop-job-step/"/>
+        <updated>2021-01-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[Batch jobs are long-running background processing tasks, and therefore it’s common that user may need to pause or stop the execution. WildFly, which implements batch processing through its jberet component based on JSR 352 and , offers a variety of ways to achieve that requirement. This post will demonstrate how to stop a running job execution, or individual step execution, and some design and implementation consideration.   PROPERLY STOP A RUNNING JOB EXECUTION  Batch spec defines a standard API for stopping a running job execution:  As stated in its , calling JobOperator.stop() sends a stop request to the batch container, which tries its best effort to stop the running job execution. So it’s important to implement batch application that properly responds to a stop request. In the following sections, I’ll explain what it entails for the two different types of steps: batchlet step and chunk step.   STOP A RUNNING JOB EXECUTION THAT CONTAINS BATCHLET STEP  A batchelt step represents a free-form, opaque task that is fully controlled by the batch application. The batch container has no chance to intervene once the batchlet starts its processing. So the batchlet class is responsible for providing a way to stop itself, if it wants to support graceful stop. That’s why javax.batch.api.Batchlet interface declares a stop() method that a batchlet class must implement.  In the example batchlet class below, once it receives a stop request in its stop() method, it sets the toStop flag to true. Its process() method periodically checks this flag to determine if it needs to stop processing.  Note that bathlet stop() method is called asynchronously while the batchlet process() method is running in a different thread. And the batchlet class should be implemented to properly handle concurrency.  @Named public class Batchlet1 implements Batchlet {     private final AtomicBoolean toStop = new AtomicBoolean();      @Override     public String process() throws Exception {         String exitStatus = "BATCHLET1_COMPLETED";         while (true) {             if (toStop.get()) {                 exitStatus = "BATCHLET1_STOPPED";                 break;             }             // perform batchlet task, such as downloading and copying files, sending emails, etc.         }         return exitStatus;     }      @Override     public void stop() throws Exception {         toStop.set(true);     } }  After the batch application is deployed to WildFly, you can start and stop a job execution in WildFly CLI:  # To start a new job execution # /deployment=numbers-chunk.war/subsystem=batch-jberet:start-job(job-xml-name=numbers) {     "outcome" => "success",     "result" => 1L }  # To stop the running job execution # /deployment=numbers-chunk.war/subsystem=batch-jberet:stop-job(execution-id=1) {"outcome" => "success"}  The above stop-job CLI operation calls JobOperator.stop(jobExecutionId) behind the scene, and eventually the batchlet stop() method is called to receive the stop request.  The following CLI commands checks the status of the stopped job execution, and a stopped job execution can be restarted from where it left off.  # To check the status of the stopped job execution: # /deployment=numbers-chunk.war/subsystem=batch-jberet/job=numbers/execution=1:read-resource(include-runtime, recursive) {     "outcome" => "success",     "result" => {         "batch-status" => "STOPPED",         "create-time" => "2020-10-29T19:33:13.843-0400",         "end-time" => "2020-10-29T19:33:30.258-0400",         "exit-status" => "STOPPED",         "instance-id" => 1L,         "last-updated-time" => "2020-10-29T19:33:30.258-0400",         "start-time" => "2020-10-29T19:33:13.853-0400"     } }  # To restart the previously stopped job execution: # /deployment=numbers-chunk.war/subsystem=batch-jberet:restart-job(execution-id=3) {     "outcome" => "success",     "result" => 4L }  You can also perform all the above operations in WildFly Management Console. For example, the following screenshot shows the UI to stop a job execution:     STOP A RUNNING JOB EXECUTION THAT CONTAINS CHUNK STEP  A chunk step is basically a read-process-write loop and naturally supports stop operation. The batch container can intervene at certain junctures amid the iterations. So unlike a batchlet step, there is no required method to implement in order to support stop.  However, since a graceful stop will wait for the current chunk to complete, the chunk step should choose a suitable chunk size (configured in item-count, time-limit, or custom checkpoint policy in job xml).  If the chunk size is too big, and the stop request arrives shortly after the current chunk starts, it may take a long time for the current chunk to complete before the batch container can safely stop the current step execution. On the other hand, a small chunk size results in more frequent checkpointing and quicker response to stop request at the expense of processing speed.   PROPERLY STOP AN INDIVIDUAL RUNNING STEP  The previous section describes ways to stop the entire job execution. You may be wondering if there is a way to stop an individual step only while allowing the rest of the job to continue. Since this is slightly deviates from the standard, you cannot use JobOperator.stop(jobExecutionId) or Batchlet.stop() to achieve that. Instead, I would consider this a special case of normal execution, which should be implemented by the batch application itself.   STOP AN INDIVIDUAL RUNNING BATCHLET STEP  Batchlet class can watch for some condition to determine if it should stop its processing. It can exit its process() method with different exit status to signal different outcomes to subsequent steps. For example, Batchlet1 below polls the system property job1.batchlet1.stop; once it’s set to true, process() method returns with exit status BATCHLET1_STOPPED.  Similarly, the condition can be a marker file in the file system, a column value in a database table, a shared state in a single bean, etc.  Once the batchlet is stopped this way, the batch status of the step will be COMPLETED, and its exit status will be BATCHLET1_STOPPED. The job execution will continue to the next step configured in job xml.  @Named public class Batchlet1 implements Batchlet {     @Override     public String process() throws Exception {         String exitStatus = "BATCHLET1_COMPLETED";         while (true) {             if (shouldStop()) {                 exitStatus = "BATCHLET1_STOPPED";                 break;             }             // perform batchlet task             // Thread.sleep(5000);         }         return exitStatus;     }      private boolean shouldStop() {         return Boolean.getBoolean("job1.batchlet1.stop");     }      @Override     public void stop() throws Exception {         // implement stop() method to respond to incoming request         // to stop this batchlet step and entire job execution     } }  In WildFly CLI, you can set and unset a system property as a flag to batch application:  # set system property in WildFly as a flag to stop the step execution # /system-property=job1.batchlet1.stop:add(value=true) {"outcome" => "success"}  # clean up afterwards and remove the system property # /system-property=job1.batchlet1.stop:remove() {"outcome" => "success"}   STOP AN INDIVIDUAL RUNNING CHUNK STEP  Stopping an individual running chunk step is more complicated than a batchlet step. When implement this case as a special case of normal processing, a possible strategy is:   * A graceful stop should wait for the current chunk to complete, and then stop    the next chunk. The batch application can poll certain condition in    javax.batch.api.chunk.listener.ChunkListener#beforeChunk method, and save the    condition, e.g., in    javax.batch.runtime.context.StepContext#setTransientUserData.   * javax.batch.api.chunk.ItemReader#readItem can check the condition from    javax.batch.runtime.context.StepContext#getTransientUserData, and if true,    return null. This will cause the chunk step to complete normally as if there    is no more data to read.  Once the chunk step is stopped this way, the batch status of the step will be COMPLETED, and its exit status will be COMPLETED unless reset by the batch application. The job execution will continue to the next step configured in job xml.   SUMMARY  In this post we went through ways to stop either a job execution or an individual step execution. It’s possible to combine them, so the batch application can support graceful stop of both the entire job execution and any individual step.  In most cases, I’d recommend designing your batch application, adhering to the batch spec and leveraging the well-defined stop behavior. It makes your batch application and workflow easier to understand and maintain. Standard stop operation also supports restarting the previously stopped job execution from where it left off (e.g., stopped step or checkpoint).  When some batch applications really need to stop an individual step, the design choice and implementation should be well documented to convey the justification and implications. As this type of stop is disguised as a normal execution, it does not support restart. Care should be taken to avoid data loss and data corruption.]]></content>
+        <author>
+            <name>Cheng Fang</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss: 14 January 2021]]></title>
+        <id>https://www.jboss.org/posts/weekly-2021-01-14.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2021-01-14.html"/>
+        <updated>2021-01-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="wildfly, camel, keycloak, teiid, springboot, tekton, kubernetes, codeready, quarkus, jgroups">
+      <h1>This Week in JBoss: 14 January 2021</h1>
+      
+    <p class="preamble"></p><p>Welcome to the first installment of our JBoss Editorial for 2021! And to start the year, we have a brand new major release of the core product of the JBoss community! Yes, Wildfly 22 is out!</p><p></p>
+<div class="sect1">
+<h2 id="_wildfly_22_and_camel_3_7">Wildfly 22 and Camel 3.7</h2>
+<div class="sectionbody">
+<p>Yes! We have a brand new major version of Wildfly! <a href="https://www.wildfly.org/news/2021/01/13/WildFly22-Final-Released/">Wildfly 22 is out!</a>.</p>
+<p>This release includes support for use of log4j2 in applications, new base health and metrics subsystems to provide server observability for users who don’t need the application instrumentation that comes with MicroProfile Health and Metrics, and a number of other features related to management, provisioning, messaging and security. Plus numerous bug fixes, enhancements and component upgrades.</p>
+<p>On top of that, there is also an updated version of the new tech-preview WildFly Preview distribution. This will allow the community have a look at what Wildfly developers are doing for Jakarta EE 9 support, along with other changes in the server architecture that are expected to appear later in 2021.</p>
+<p>Wildfly 22 is already a nice treat, but we also have <a href="https://camel.apache.org/blog/2020/12/Camel37-Whatsnew/">Camel 3.7</a>, which also quite exciting, and fortunately for all of us, Claus Ibsen has published a review of what he called <a href="http://www.davsclaus.com/2020/12/apache-camel-37-lts-released-fastest.html">the fastest Camel ever!</a> So, go check it out if you want to know more about this camel release.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tech_bytes">Tech bytes</h2>
+<div class="sectionbody">
+<p>A few interesting technical articles came out in the last weeks, so we’ll try to catch you up with three of them here. First, we have an excellent one from Bela Ban on <a href="http://belaban.blogspot.com/2020/12/running-jgroups-raft-as-service.html">running JGroups raft as a service</a>. It’s very hands on post, focusing on getting everything running. Then we have a longer walkthrough to let you experiment on <a href="https://blog.ramon-gordillo.dev/2020/12/spring-boot-embedded-cache-with-infinispan-in-kubernetes/">using Spring boot embedded cache with Infinispan on Kubernetes</a>. Certainly, worth a look, isn’t it? The last one is, of course, on Quarkus, because Quarkus is, as it should, all the rage lately. In this article, Clément Escoffier took the time to explain some of the <a href="https://quarkus.io/blog/magic-control">magic beneath Quarkus and Vert.x</a> and why this is the kind magic you to have as a developer.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_evangelists_corner">Evangelist’s Corner</h2>
+<div class="sectionbody">
+<p>As always, our very own Eric Schabell has been busy in the few last weeks and released a steady stream of new content. First, he published <a href="https://www.schabell.org/2021/01/codeready-containers-installing.html">part4 - Installing business automation operator</a> of his series on CodeReady containers. He then revisited the <a href="https://www.schabell.org/2020/12/codeready-containers-exploring-home-loan-mortgage-process.html">Home loan mortgage process using CodeReady Containers</a>. Still on the topic of CodeReady Containers, he provided a <a href="https://www.schabell.org/2021/01/codeready-containers-howto-setup-openshift-46-on-local-machine.html">How to setup the OpenShift Container Platform 4.6 on your local machine</a> follow by a tutorial on <a href="https://www.schabell.org/2020/12/codeready-containers-building-hr-process-with-openshift-operator.html">Building a Human Resources Process with an OpenShift Operator</a></p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_releases_releases_releases">Releases, releases, releases…​</h2>
+<div class="sectionbody">
+<p>As always, the JBoss community has been quite active in the last weeks, and more than a few project releases new version (including the forementionned Wildfly 22 and Apache Camel 3.7):</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.wildfly.org/news/2021/01/13/WildFly22-Final-Released/">Wildfly 22 Final released!</a></p>
+</li>
+<li>
+<p><a href="https://www.keycloak.org//2020/12/keycloak-1201-released.html">Keycloak 12.0.1 released</a></p>
+</li>
+<li>
+<p><a href="https://camel.apache.org/blog/2020/12/Camel37-Whatsnew/">Apache Camel 3.7</a></p>
+</li>
+<li>
+<p><a href="http://teiid.blogspot.com/2021/01/teiid-spring-boot-170-released.html">Teiid Spring Boot 1.7.0 Released</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decaf">Decaf</h2>
+<div class="sectionbody">
+<p>You want to break from Java programming, but still learn something relevant to it? Well, take a look at this article on <a href="https://developers.redhat.com/blog/2021/01/13/getting-started-with-tekton-and-pipelines/">Getting started with Tekton and Pipelines</a>. It’s more than likely to pique your interest.</p>
+<p><em>That’s all for today! Please join us again in two weeks for another installment of our JBoss editorial! Stay safe and healthy in the meantime.</em></p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/romain-pelisse.png"></pfe-avatar>
+        <span>Romain Pelisse</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Romain Pelisse</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/romain-pelisse</uri>
+        </author>
+        <category label="wildfly" term="wildfly"/>
+        <category label="camel" term="camel"/>
+        <category label="keycloak" term="keycloak"/>
+        <category label="teiid" term="teiid"/>
+        <category label="springboot" term="springboot"/>
+        <category label="tekton" term="tekton"/>
+        <category label="kubernetes" term="kubernetes"/>
+        <category label="codeready" term="codeready"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="jgroups" term="jgroups"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Using case principal transformers in Elytron]]></title>
+        <id>https://wildfly-security.github.io/wildfly-elytron/blog/case-principal-transformer/</id>
+        <link href="https://wildfly-security.github.io/wildfly-elytron/blog/case-principal-transformer/"/>
+        <updated>2021-01-14T00:00:00.000Z</updated>
+        <author>
+            <name>Sonia Zaldana Calles</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss: 25 December 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-12-25.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-12-25.html"/>
+        <updated>2020-12-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="Christmas, 2020">
+      <h1>This Week in JBoss: 25 December 2020</h1>
+      <p>I’m writing this on Christmas Day and have spent the last week or so thinking about what I should put
+into my traditional 25th of December entry. Then it came to me in that "lightbulb moment": I’d replicate,
+more or less, what I said to my entire team/org before I went on vacation a few days earlier. It’s a summary
+of the year and I think it’s relevant for our wider community too. So here it is in a slightly modified form …​</p>
+<p>I wanted to spend a few minutes thanking you all for the work and interactions you’ve done over this testing year!
+I don’t think anyone could have predicted 2020 at the start of the year and I think it’s fair to say that every one of us
+has been affected in one way or another. Yet if you look back on the year and the accomplishments we’ve achieved
+as a community, you could be forgiven for thinking this was a normal year!</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Making Quarkus available to all OpenShift customers, which we announced at KubeCon, as well as continuing the innovation within
+(e.g., Hibernate Reactive, RESTeasy Reactive);</p>
+</li>
+<li>
+<p>Knative/Serverless, where we now have 7 Working Group leads out of 15 in the Knative community, we also added Functions to OpenShift Serverless;</p>
+</li>
+<li>
+<p>More and more of our technologies become available to Kube developers;</p>
+</li>
+<li>
+<p>We continued our close involvement with AdoptOpenJDK (aka Eclipse Adoptium), helping to push it to even greater heights;</p>
+</li>
+<li>
+<p>So many great innovations continued around efforts such as Kogito, Strimzi, Camel-K, Eclipse Vert.x, Infinispan, …​</p>
+</li>
+<li>
+<p>We all managed to host, attend, present at countless virtual conferences, workshops and Red Hat Summit; probably enough to realise what
+we’re all missing from the real things!</p>
+</li>
+<li>
+<p>Eclipse MicroProfile 4.0 and Eclipse Jakarta EE 9.0 both come to life;</p>
+</li>
+</ul>
+</div>
+<p>The list could go on and on (e.g., EAP XD, OptaPlanner, …) but my point isn’t so much to call out the successes that this
+community have helped to drive but rather to illustrate that we were able to do these and more at all! In the
+climate of 2020, retaining the kind of focus we have and continuing to go above and beyond, as many of you and the teams
+have, is a testament to Red Hat and our communities, our culture and the supporting bonds you’ve all built up and nurtured. For that
+alone I thank you and you should all be incredibly proud!</p>
+<p>With that in mind, whether or not you celebrate Christmas or intend to take extended time away, make sure you do take time
+to rest and recharge. Be with your friends and family as much as you can given the continuing Covid situation. Find time to unwind
+but also congratulate yourself on coming together in 2020 and delivering so much to our communities, partners and customers. I’m not
+even going to try to predict what 2021 will be like but if we can replicate what we’ve been able to do in 2020, I’m sure
+we’ll all come through it stronger and together!</p>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/mark-little.png"></pfe-avatar>
+        <span>Mark Little</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Mark Little</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/mark-little</uri>
+        </author>
+        <category label="Christmas" term="Christmas"/>
+        <category label="2020" term="2020"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 17 December 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-12-17.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-12-17.html"/>
+        <updated>2020-12-17T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="quarkus, resteasy, springboot, avro, apicurio">
+      <h1>This Week in JBoss - 17 December 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another installment of our JBoss Editorial and last before the holidays! As always during this period of the year, we all rush to finish our ongoing tasks so that we can enjoy a bit of rest. And the projects of the JBoss community do the same, which means we have quite of lot to discuss today! So, without any further ado…​</p><p></p>
+<div class="sect1">
+<h2 id="_quarkus_and_resteasy_reactive">Quarkus and RestEasy Reactive</h2>
+<div class="sectionbody">
+<p>The last months have certainly been quite active for Quarkus. Now part of the portfolio of <a href="https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus">Red Hat products</a>, the project has everything but slow down. Just last week a new release, <a href="https://quarkus.io/blog/quarkus-1-10-3-final-released/">Quarkus 1.10.3</a> was published, but also RestEasy announced a large refactoring of its project <a href="https://quarkus.io/blog/resteasy-reactive/">RestEasy Reactive</a> in order to integrate and support Quarkus even more. Alessio Soldano, one of the main developers of RestEasy, also shares his thoughts behind this project <a href="https://resteasy.github.io/2020/12/07/resteasy-reactive/">here</a>.</p>
+<p>But that’s not all in the Quarkiverse! Andy Damevin released an interesting article on link:But that’s not all in the Quarkus-verse! Andy Damevin released an interesting article on new ways to discover Quarkus <a href="https://quarkus.io/blog/extension-codestarts-a-new-way-to-learn-and-discover-quarkus/"> new ways to discover Quarkus using Extension codestarts</a>. Whether that you already know Quarkus or want to explore it for the first time, this one will be in any case quite interesting to you! Oh, and by the way Quarkiverse is by no means a "bon mot,” it’s the real thing: <a href="https://quarkus.io/blog/quarkiverse/">Quarkiverse Hub - Home of Community Extensions</a>, so go check out this article from George Gastaldi to know more about it!</p>
+<p>Last, but certainly not the least, another article will help you <a href="https://developers.redhat.com/blog/2020/12/08/spring-boot-to-quarkus-migrations-and-more-in-red-hats-migration-toolkit-for-applications-5-1-0/">migrating your Spring Boot app to Quarkus using the Red Hat migration toolkit</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apache_avro_and_apicurio_registry">Apache Avro and Apicurio Registry</h2>
+<div class="sectionbody">
+<p>Avro and Apicurio got a lot of attention in the last weeks. First, Clément Escoffier, who already took the time to blog about <a href="">How to Use Kafka, Schema Registry and Avro with Quarkus</a> a few months ago, just released a new article on <a href="https://quarkus.io/blog/avro-native/">Using Avro in a native executable</a>. Hugo Guerrero also took a stab at the topic in his blog entry on <a href="https://developers.redhat.com/blog/2020/12/11/debezium-serialization-with-apache-avro-and-apicurio-registry/">Debezium serialization with Apache Avro and Apicurio Registry</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decaf">Decaf'</h2>
+<div class="sectionbody">
+<p>With the end of 2020 coming up soon, it’s time to clean up our desk and prepare a clean slate for next year. So let’s do the same with our computer and follow <a href="https://developers.redhat.com/blog/2020/12/10/how-to-clean-up-the-fedora-root-folder/">this how-to to clean up your Fedora</a>!</p>
+<p><em>That’s all for today! Please join us again in two weeks for another installment of our JBoss editorial! Stay safe and healthy in the meantime.</em></p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/romain-pelisse.png"></pfe-avatar>
+        <span>Romain Pelisse</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Romain Pelisse</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/romain-pelisse</uri>
+        </author>
+        <category label="quarkus" term="quarkus"/>
+        <category label="resteasy" term="resteasy"/>
+        <category label="springboot" term="springboot"/>
+        <category label="avro" term="avro"/>
+        <category label="apicurio" term="apicurio"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 16 September 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-12-03.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-12-03.html"/>
+        <updated>2020-12-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="jgroups, quarkus, infinispan, openshift, business automation">
+      <h1>This Week in JBoss - 16 September 2020</h1>
+      
+    <p class="preamble"></p><p>Hello! Welcome to another edition of the JBoss Editorial that brings you news and updates from our community.</p><p></p>
+<div class="sect1">
+<h2 id="_releases">Releases!</h2>
+<div class="sectionbody">
+<p><a href="https://quarkus.io/blog/quarkus-1-10-2-final-released/">Quarkus 1.10</a> is out!
+This release brings several updates, notably JSON as the default media type for REST resources in your Quarkus applications.
+Now you no longer need all those <code>`@Produces</code> and <code>@Consumes</code> annotations!</p>
+<p>Quarkus 1.10 also brings you two new Micrometer registries, additional metrics, and lots of consistency and configuration improvements to all things Swagger UI, which is detailed in the <a href="https://quarkus.io/blog/stylish-api/">Stylish API</a> blog post.</p>
+<p>WildFly have released <a href="https://www.wildfly.org/news/2020/11/27/WildFly-GraphQL-feature-pack-1.0/">GraphQL Feature Pack 1.0.0.Final</a> to give WildFly 20 and 21 the latest MicroProfile GraphQL and SmallRye GraphQL capabilities.
+Congrats to the WildFly team!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_distributed_locks_they_dont_work">Distributed Locks? They Don’t Work!</h2>
+<div class="sectionbody">
+<p>Bela Ban’s recent post, <a href="http://belaban.blogspot.com/2020/11/i-hate-distributed-locks.html">I hate distributed locks!</a>, is an insightful and emotionally charged look at the pain and the agony of distributed locks.
+He dissects different scenarios in which locks are distributed and the pitfalls for each.
+Bela does give hints to other alternatives, but I’d suggest you go read them over on his blog.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_events_with_quarkus">Cloud Events with Quarkus</h2>
+<div class="sectionbody">
+<p>Given that event-drive architectures are becoming ever more popular, Clement Escoffier introduces Cloud Events with the Kafka Connector in Quarkus and shows you <a href="https://quarkus.io/blog/kafka-cloud-events/">how to write and read Cloud Events easily</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vert_x_mutiny_api">Vert.x Mutiny API</h2>
+<div class="sectionbody">
+<p>In another recent post on the Quarkus blog, <a href="https://quarkus.io/blog/mutiny-vertx/">Mutiny and the Reactiverse</a>, Clement Escoffier explains using Mutiny variants of Vert.x APIs to get a seamless experience with reactive APIs in Quarkus while taking advantage of the Vert.x ecosystem.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_untangling_reactive_streams">Untangling Reactive Streams</h2>
+<div class="sectionbody">
+<p>Continuing the discussion on the reactive paradigm, Rebecca Searls strips back complexities of Reactive Streams in her <a href="https://resteasy.github.io/2020/11/23/blog-Untangling-Reactive-Streams/">detailed blog post</a> and brings some clarity for wiring a Subscriber, Publisher, and Subscription.
+Be sure to check out the demo code in <a href="https://github.com/rsearls/blog-posts">Rebecca’s github</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_business_automation_and_codeready_containers">Business Automation and CodeReady Containers</h2>
+<div class="sectionbody">
+<p>In this first in his series of articles, Eric D. Schabell begins his journey that will guide you through using the latest Business Automation Operator on the OpenShift Container Platform.</p>
+<p>Take a look at <a href="https://www.schabell.org/2020/12/codeready-containers-installing-business-automation-operator-part1.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+schabell/jboss+(Eric+D.Schabell-+JBoss)">CodeReady Containers - Installing business automation operator (Part 1)</a> to install the operator manually and then starting using decision management and process automation tooling on OpenShift.
+Eric’s post is complete with an example project.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_infinispan_website">Infinispan Website</h2>
+<div class="sectionbody">
+<p>The Infinispan community have launched a revamped site at <a href="https://infinispan.org">infinispan.org</a>.
+The new layout has a great look and feel! Congrats to the team.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_red_hat_developer_highlights">Red Hat Developer Highlights</h2>
+<div class="sectionbody">
+<p>Alex Krikos and Donna Smalls announce Red Hat Software Collections that offer use case-specific tools along with the most current, stable version of dynamic languages, open source databases, web servers, and other critical development components.
+Visit the <a href="https://developers.redhat.com/blog/2020/12/01/red-hat-software-collections-3-6-now-generally-available/">Red Hat Software Collections 3.6 Now Generally Available</a> announcement.</p>
+<p>David Harris and Nick Boldt’s <a href="https://developers.redhat.com/blog/2020/12/01/using-intellij-community-edition-in-red-hat-codeready-workspaces-2-5/">Using IntelliJ Community Edition in Red Hat CodeReady Workspaces 2.5</a> post explains how to create a custom workspace with IntelliJ IDEA in CodeReady Workspaces 2.5.</p>
+<p>Karina Varela introduces us to the out-of-the-box integration with Apache Kafka in Process Automation Manager 7.9 in her artcile, <a href="https://developers.redhat.com/blog/2020/11/27/red-hat-process-automation-manager-7-9-brings-apache-kafka-integration-and-more/">Red Hat Process Automation Manager 7.9 brings Apache Kafka integration and more</a>.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/don-naro.png"></pfe-avatar>
+        <span>Don Naro</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Don Naro</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/don-naro</uri>
+        </author>
+        <category label="jgroups" term="jgroups"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="openshift" term="openshift"/>
+        <category label="business automation" term="business automation"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This week in JBoss - 20th November 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-11-20.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-11-20.html"/>
+        <updated>2020-11-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="news, weekly_update, weekly_editorial, wildfly, quarkus, jcliff, ansible, jca, jpa, jakarta-ee, openid, 3scale, event-driven, Camel-K, aws, kafka, camel, apicurio">
+      <h1>This week in JBoss - 20th November 2020</h1>
+      
+    <p class="preamble"></p><p><em>Welcome to another installment of our JBoss Editorial! Today, we’ll focus on some core project of our community. The first one is obviously Wildfly, our Jakarta EE application server whom predecessor (JBoss AS) was the beginning of everything. The second one is our more recent and shiny project, Quarkus. Without any further ado, let’s begin!</em></p><p></p>
+<div class="sect1">
+<h2 id="_wildfly_a_first_taste_of_jakarta_9">Wildfly, a first Taste of Jakarta 9</h2>
+<div class="sectionbody">
+<p>With the release of the <a href="https://wildfly.org//news/2020/11/19/WildFly2101-Released/">Wildfly 21.01</a>, it’s time to put the Jakarta EE server back in the spotlight. Especially as this release gives a <a href="https://www.wildfly.org//news/2020/11/12/Jakarta-EE-9-with-WildFly-Preview/">a preview of Jakarta EE 9</a>! And if your knowledge of the EE standards needs a refresher to fully enjoy this preview, we got you covered with this in depth two-part series on <a href="https://developers.redhat.com/blog/2020/06/15/jakarta-ee-multitenancy-with-jpa-on-wildfly-part-1/">Jakarta EE multitenancy (part1)</a> and <a href="https://developers.redhat.com/blog/2020/11/12/jakarta-ee-multitenancy-with-jpa-on-wildfly-part-2/">(part 2)</a>.</p>
+<p>But Jakarta EE 9 is not the only newsworthy item around Wildfly. The first part of my own series on <a href="https://developers.redhat.com/blog/2020/11/06/wildfly-server-configuration-with-ansible-collection-for-jcliff-part-1/">automation of Wildfly using Ansible and JCliff</a> is out! It’s hand on a tutorial on how to set up Ansible and its decided collection for Wildfly (<a href="https://github.com/wildfly-extras/ansible_collections_jcliff">JCliff</a>) in order to fully automate the app server set up and configuration.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quarkus_leading_the_future_of_java">Quarkus, Leading the Future of Java</h2>
+<div class="sectionbody">
+<p>It might a bold statement, but we’ve made it! Or rather Red Hat made it as Quarkus 1.7 is available as a product for a little while now. Maybe it’s time to finally take a look at it by following this <a href="https://developers.redhat.com/blog/2020/11/10/leading-the-future-of-java-with-the-red-hat-build-of-quarkus-1-7/">Red Hat Quarkus tutorial</a>?</p>
+<p>This is also a perfect opportunity to explore Quarkus functionality and ecosystems. For instance, take a look at this interesting post on <a href="https://quarkus.io/blog/mutiny-invoke-and-call/">mutiny invoke and call</a>. Or simply explore the cloud readiness of the framework with this article on <a href="https://developers.redhat.com/blog/2020/11/13/how-i-built-a-serverless-blog-search-with-java-quarkus-and-aws-lambda/">building a serverless blog search with Quarkus and AWS lambda</a> and this <a href="https://www.redhat.com/en/blog/introducing-quarkus-red-hat-openshift?sc_cid=701f2000000tyBjAAI">introduction to Quarkus on Red Hat Openshift</a>?</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_techbytes">Techbytes</h2>
+<div class="sectionbody">
+<p>If Quarkus and Wildfly did not quench your thirst for knowledge, let us give you a bit more nuggets. First, why not explore the topic of <a href="https://developers.redhat.com/blog/2020/11/09/openid-connect-integration-with-red-hat-3scale-api-management-and-okta/">using OpenID connect integration with 3scale</a>? Or maybe <a href="http://wei-meilin.blogspot.com/2020/11/contract-first-development-event-driven.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+blogspot%2FhFXzh+%28Christina+%E7%9A%84+J%E8%80%81%E9%97%86%29">contract first development using an event-driven approach with Kafka, AMQ Streams, APIcurio</a>? And to make it extra spicy, Christina has even a added a touch of Google protobuf! By the way, if "event driven" is your thing, you can then move this other article on <a href="https://developers.redhat.com/blog/2020/11/17/event-driven-serverless-applications-with-camel-k/">event driven serverless with Camel K</a>.</p>
+<p>Still hungry for more? Well, maybe it’s time for less crunchy and technical details? What about stepping back and invite some reflection on <a href="http://www.ofbizian.com/2020/11/open-source-monetization-ecosystem.html">Open Source monetization ecosystem</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_releases_releases_releases">Releases, releases, releases…​</h2>
+<div class="sectionbody">
+<p>In case you somehow missed above (most likely by jumping directly to this section) …​ <a href="https://wildfly.org//news/2020/11/19/WildFly2101-Released/">Wildlfy 21 Alpha 1 has been released</a>!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decaf">Decaf</h2>
+<div class="sectionbody">
+<p>All this Java made you too jittery? Time for a Java break? Here are a few dry cookies to go along your cup of joe. As mentioned above, the first part of my series on using [Ansible to automate Wildfly setup] might a nice palate cleanser. Also, if you are using Docker you might be interested in this article describing how to <a href="https://developers.redhat.com/blog/2020/11/19/transitioning-from-docker-to-podman/">transitioning from Docker to Podman</a>.</p>
+<p><em>That’s all for today! Please join us again in two weeks for another installment of our JBoss editorial! Stay safe and healthy in the meantime.</em></p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/romain-pelisse.png"></pfe-avatar>
+        <span>Romain Pelisse</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Romain Pelisse</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/romain-pelisse</uri>
+        </author>
+        <category label="news" term="news"/>
+        <category label="weekly_update" term="weekly_update"/>
+        <category label="weekly_editorial" term="weekly_editorial"/>
+        <category label="wildfly" term="wildfly"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="jcliff" term="jcliff"/>
+        <category label="ansible" term="ansible"/>
+        <category label="jca" term="jca"/>
+        <category label="jpa" term="jpa"/>
+        <category label="jakarta-ee" term="jakarta-ee"/>
+        <category label="openid" term="openid"/>
+        <category label="3scale" term="3scale"/>
+        <category label="event-driven" term="event-driven"/>
+        <category label="Camel-K" term="Camel-K"/>
+        <category label="aws" term="aws"/>
+        <category label="kafka" term="kafka"/>
+        <category label="camel" term="camel"/>
+        <category label="apicurio" term="apicurio"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This week in JBoss - 6th November 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-11-06.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-11-06.html"/>
+        <updated>2020-11-06T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="news, weekly_update, weekly_editorial, keycloak, camel, decision_manager, process_automation, wildfly, open_liberty, fabric8">
+      <h1>This week in JBoss - 6th November 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Editorial where we search through the JBoss Community for interesting articles and updates</p><p></p>
+<div class="sect1">
+<h2 id="_optimizing_camel_3_7">Optimizing Camel 3.7</h2>
+<div class="sectionbody">
+<p>Camel 3.7 continues the push to optimize camel core by introducing some more improvements including further modularisation to help reduce the size of the runtime, a lightweight mode and more.  For further details <a href="http://www.davsclaus.com/2020/11/apache-camel-37-more-camel-core.html">check out Claus' blog where he covers these improvements in more detail</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keycloak_authentication_using_a_mobile_phone_number">Keycloak Authentication Using a Mobile Phone Number</h2>
+<div class="sectionbody">
+<p>The Keycloak Identity and Access Management project provides an extension mechanism through which a developer can provide additional, custom authentication service providers to expand its capabilities.  <a href="https://developers.redhat.com/blog/2020/10/23/use-mobile-numbers-for-user-authentication-in-keycloak/">Siddhartha and his team recently took advantage of this capability to develop a custom authenticator class which could be used to authenticate a user via their mobile phone number</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fronting_decision_management_with_a_node_js_front_end">Fronting Decision Management with a Node.js Front End</h2>
+<div class="sectionbody">
+<p>If you are interested in exploring how to expose the Decision Management server through a Node.js front end then Eric has a great demo for you.  The <a href="https://www.schabell.org/2020/10/codeready-containers-exploring-nodejs-with-decision-manager.html">demo is based on a bank loan scenario and uses numerous technologies within the Decision Management server as well as introducing a client application written in AngularJS and PatternFly</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wildfly_server_configuration_with_ansible_collection_for_jcliff">WildFly server configuration with Ansible collection for JCliff</h2>
+<div class="sectionbody">
+<p>In the first part of a three part series covering how to take advantage of Ansible capabilities to fine tune a WildFly server, <a href="https://developers.redhat.com/blog/2020/11/06/wildfly-server-configuration-with-ansible-collection-for-jcliff-part-1/">Romain walks us through the necessary steps for installing JCliff and ensuring it can be used within ansible playbooks</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_open_liberty_and_kerberosthanos_support">Open Liberty and Kerberos/Thanos support</h2>
+<div class="sectionbody">
+<p>The Open Liberty 20.0.0.11 release introduced two very interesting capabilities, the addition of kerberos authentication for securing Java Database Connectivity data sources and the ability to visualise MicroProfile Metrics data from Thanos sources.  For more information on these capabilities <a href="https://developers.redhat.com/blog/2020/10/30/open-liberty-20-0-0-11-brings-kerberos-authentication-and-thanos-support-in-grafana-dashboards/">check out Austin’s blog on the topic</a></p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_new_in_fabric8_kubernetes_java_client">What’s new in Fabric8 Kubernetes Java Client</h2>
+<div class="sectionbody">
+<p>The recent Fabric8 Kubernetes Java client 4.12.0 release included a number of bug fixes and new features.  For more information on these updates, including details on some breaking changes, <a href="https://developers.redhat.com/blog/2020/10/30/whats-new-in-fabric8-kubernetes-java-client-4-12-0/">head over to Rohan’s post where he covers these in more detail</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jboss_online">JBoss Online</h2>
+<div class="sectionbody">
+<p>Eric Schabell will be giving a presentation as part of the KieLives series on all technologies living under the KIE umbrella.  Eric’s talk is titled <a href="https://www.schabell.org/2020/11/kielive-ultimate-beginners-guide-to-rules-processes-episode14.html">"The ultimate beginers guide to rules and processes"</a> and will be taking place on November 10th.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_releases">New Releases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://www.keycloak.org/">Keycloak team</a> have announced the release of <a href="https://www.keycloak.org//2020/11/keycloak-1103-released.html">Keycloak 11.0.3</a></p>
+</li>
+</ul>
+</div>
+<p>That’s all for this edition of the JBoss Editorial, please join us in a couple of weeks when we will bring you more news and articles from the JBoss Community Projects.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/kevin-conner.png"></pfe-avatar>
+        <span>Kevin Conner</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Kevin Conner</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/kevin-conner</uri>
+        </author>
+        <category label="news" term="news"/>
+        <category label="weekly_update" term="weekly_update"/>
+        <category label="weekly_editorial" term="weekly_editorial"/>
+        <category label="keycloak" term="keycloak"/>
+        <category label="camel" term="camel"/>
+        <category label="decision_manager" term="decision_manager"/>
+        <category label="process_automation" term="process_automation"/>
+        <category label="wildfly" term="wildfly"/>
+        <category label="open_liberty" term="open_liberty"/>
+        <category label="fabric8" term="fabric8"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This week in JBoss - 23rd October 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-10-23.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-10-23.html"/>
+        <updated>2020-10-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="news, weekly_update, weekly_editorial, kafka, quarkus, infinispan, keycloak, openshift, micrometer, microprofile, mutiny, codeready">
+      <h1>This week in JBoss - 23rd October 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Editorial where we bring you articles and news from across the JBoss Community of projects.</p><p></p>
+<div class="sect1">
+<h2 id="_micrometer_is_recommended_for_metrics_with_quarkus_1_9">Micrometer is recommended for metrics with Quarkus 1.9</h2>
+<div class="sectionbody">
+<p>In <a href="https://quarkus.io/blog/micrometer-metrics/">this post</a>, Ken explains why the Quarkus team are now reccomending the use of the Micrometer Quarkus extension over the previous Eclipse MicroProfile Metrics extension.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kafka_how_to_fail_gracefully">Kafka - How to fail gracefully</h2>
+<div class="sectionbody">
+<p>Failures are inevitable.
+There is nothing we can do about that, and that also applies to Kafka applications.
+Your application may contain a faulty component misbehaving once in a while, or unable to process a specific Kafka record.
+In <a href="https://quarkus.io/blog/kafka-failure-strategy/">this post</a>, Clement explains how to manage these failures.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_mobile_numbers_for_user_authentication_in_keycloak">Use mobile numbers for user authentication in Keycloak</h2>
+<div class="sectionbody">
+<p>In <a href="https://developers.redhat.com/blog/2020/10/23/use-mobile-numbers-for-user-authentication-in-keycloak/">this post</a> Siddhartha De explains how to extend Keycloak to use mobile-based authentication.
+The post explains the need for mobile-authentication and shows, hands on, how to use the Keycloak service provider interface to create this extension.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_securely_connect_quarkus_and_red_hat_data_grid_on_red_hat_openshift">Securely connect Quarkus and Red Hat Data Grid on Red Hat OpenShift</h2>
+<div class="sectionbody">
+<p>Continuing on the theme of security, James Falkner explains (<a href="https://developers.redhat.com/blog/2020/10/15/securely-connect-quarkus-and-red-hat-data-grid-on-red-hat-openshift/">here</a>) how to secure applications deployed on Red Hat OpenShift that use the <a href="https://quarkus.io/guides/infinispan-client">Quarkus Data Grid Extension</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_a_payments_architecture">Creating a Payments Architecture</h2>
+<div class="sectionbody">
+<p>Eric continues his blog series looking at how Cloud technologies are changing the way we architect and deliver software, in particular how these technologies will apply to the Payment Services industry.
+This week Eric describes a <a href="https://www.schabell.org/2020/10/payments-architecture-financial-calculations-example.html">Financial Calculations Example</a></p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mutiny_how_does_retry_retries">Mutiny - How does retry…​ retries?</h2>
+<div class="sectionbody">
+<p>Clement was recently helping a community Quarkus user understand how to retry asynchronous operations with Mutiny.
+In doing so, he realised it was not all that simple to understand, and so he created <a href="https://quarkus.io/blog/uni-retry/">this blog post</a> so that the whole community could benefit from his explanation.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_codeready_containers_building_a_cloud_native_human_resources_process">CodeReady Containers - Building a Cloud-Native Human Resources Process</h2>
+<div class="sectionbody">
+<p>In <a href="https://www.schabell.org/2020/10/codeready-containers-building-cloud-native-hr-process.html">this blog post</a> Eric talks you through how to install process automation developer tooling into a running Openshift Container platform.
+You can also refer to one of <a href="https://gitlab.com/redhatdemocentral/ocp-install-demo">Eric’s previous posts</a> for details on how to easily get Openshift Container Platform running on your local machine.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_releases">New Releases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://quarkus.io/">Quarkus team</a> have announced the release of <a href="https://quarkus.io/blog/quarkus-1-9-0-final-released/">Quarkus 1.9</a> and <a href="https://quarkus.io/blog/intellij-quarkus-tools-1.2.0/">Quarkus Tools for IntelliJ 1.2.0</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/paul-robinson.png"></pfe-avatar>
+        <span>Paul Robinson</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Paul Robinson</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/paul-robinson</uri>
+        </author>
+        <category label="news" term="news"/>
+        <category label="weekly_update" term="weekly_update"/>
+        <category label="weekly_editorial" term="weekly_editorial"/>
+        <category label="kafka" term="kafka"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="keycloak" term="keycloak"/>
+        <category label="openshift" term="openshift"/>
+        <category label="micrometer" term="micrometer"/>
+        <category label="microprofile" term="microprofile"/>
+        <category label="mutiny" term="mutiny"/>
+        <category label="codeready" term="codeready"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This week in JBoss - 12th October 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-10-12.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-10-12.html"/>
+        <updated>2020-10-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="news, weekly_update, weekly_editorial, decision_manager, process_automation, kafka, camel, kamlets, quarkus, hacktoberfest, infinispan">
+      <h1>This week in JBoss - 12th October 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Editorial where we bring you articles and news from across the JBoss Community of projects</p><p></p>
+<div class="sect1">
+<h2 id="_creating_a_payments_architecture">Creating a Payments Architecture</h2>
+<div class="sectionbody">
+<p>With Cloud technologies changing the way we architect and deliver software Eric has been taking a look at how these technologies will apply to the Payment Services industry.</p>
+<p>In the next two posts from his Payment Architecture series Eric introduces us to <a href="https://www.schabell.org/2020/10/payments-architecture-anti-money-laundering-example.html">the design of an Anti-Money Laundering solution</a> and follows that with <a href="https://www.schabell.org/2020/10/payments-architecture-fraud-detection-example.html">the design of a Fraud Detection solution</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_codeready_containers_decision_manager_and_process_automation">CodeReady Containers, Decision Manager and Process Automation</h2>
+<div class="sectionbody">
+<p>If you have ever wanted to explore Decision Manager or Process Automation running within the cloud then it has never been easier to get started.  Eric has developed two simple setups, both leveraging CodeReady containers and OpenShift Container Platform 4.5, which allow you to quickly set up <a href="https://www.schabell.org/2020/10/codeready-containers-getting-started-with-ocp-45-and-decision-manager-tooling.html">Decision Manager</a> and <a href="https://www.schabell.org/2020/10/codeready-containers-ocp-45-with-process-automation-tooling.html">Process Automation</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kafka_and_emitters_a_deeper_dive">Kafka and Emitters, a deeper dive</h2>
+<div class="sectionbody">
+<p>Following on from an earlier blog post introducing us to emitters and how they can be used to send messages, Clement has taken a <a href="https://quarkus.io/blog/reactive-messaging-emitter/">deeper look into the Emitter construct and explains how this can be used to bridge between the imperative and reactive worlds</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optimizing_camel_3_6">Optimizing Camel 3.6</h2>
+<div class="sectionbody">
+<p>Camel 3.6 will bring with it a number of optimizations to the camel core which will improve not only the performance of the core but also reduce the resources required to run camel routes.  For more information <a href="http://www.davsclaus.com/2020/10/apache-camel-36-more-camel-core.html">check out Claus' blog where he describes the changes in more detail</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kamlets_camel_in_the_cloud">Kamlets, Camel in the cloud</h2>
+<div class="sectionbody">
+<p>Apache Camel K 1.2.0 introduced a number of features, the most important of which is the Kamelet.  The Kamelet represents a camel route snippet and encapsulates the logic for connecting to a specific system.  For more information check out <a href="https://www.nicolaferraro.me/2020/10/12/kamelets/">Nicola’s blog where he introduces you to Kamelets and how they relate to Knative Eventing</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing_quarkus">Testing Quarkus</h2>
+<div class="sectionbody">
+<p>Alex Soto and Burr Sutter recently gave a talk about testing Quarkus applications as part of the DevNation Tech Talk series.  The talk covers <a href="https://developers.redhat.com/blog/2020/10/12/quarked-testing-writing-tests-for-quarkus/">how to test basic components as well as more advanced topics such as persistence, service virtualization and using containers for testing</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributing_to_opensource_communities">Contributing to OpenSource Communities</h2>
+<div class="sectionbody">
+<p>With <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest</a> already under way there are a number of opportunities for contributing to OpenSource, including a number of projects within the JBoss Community with two of those being <a href="https://strimzi.io">Strimzi</a> and <a href="https://quarkus.io/">Quarkus</a>.   If you are interested in <a href="https://strimzi.io/blog/2020/10/01/hacktoberfest/">contributing to Strimzi</a> then check out Paolo’s post, if interested in <a href="https://quarkus.io/blog/contributing-for-the-first-time/">contributing to Quarkus</a> then check out Loïc’s post.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_releases">New Releases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://quarkus.io/">Quarkus team</a> have announced the release of <a href="https://quarkus.io/blog/quarkus-1-8-2-final-released/">Quarkus 1.8.2.Final</a> and <a href="https://quarkus.io/blog/quarkus-1-8-3-final-released/">Quarkus 1.8.3.Final</a></p>
+</li>
+<li>
+<p>The <a href="https://infinispan.org/">Infinispan</a> team have announced the release of <a href="https://infinispan.org/blog/2020/09/08/infinispan-12/">Infinispan 12.0.0.Dev03</a></p>
+</li>
+</ul>
+</div>
+<p>That’s all for this episode of the JBoss Editorial, please join us for our next edition when we will take another spin through the JBoss Community Projects in search of more interesting news and articles.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/kevin-conner.png"></pfe-avatar>
+        <span>Kevin Conner</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Kevin Conner</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/kevin-conner</uri>
+        </author>
+        <category label="news" term="news"/>
+        <category label="weekly_update" term="weekly_update"/>
+        <category label="weekly_editorial" term="weekly_editorial"/>
+        <category label="decision_manager" term="decision_manager"/>
+        <category label="process_automation" term="process_automation"/>
+        <category label="kafka" term="kafka"/>
+        <category label="camel" term="camel"/>
+        <category label="kamlets" term="kamlets"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="hacktoberfest" term="hacktoberfest"/>
+        <category label="infinispan" term="infinispan"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 30 September 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-09-30.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-09-30.html"/>
+        <updated>2020-09-30T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="jBPM, OCP, OpenShift, Camel, CamelK, DevConf, Kafka">
+      <h1>This Week in JBoss - 30 September 2020</h1>
+      <p>It’s that time again where we round up the latest news from the community…</p>
+<p>Are you looking to develop projects on your local machine, and push them on to a real OpenShift Container Platform, without having to worry about cloud hosting of your container platform?
+In this <a href="https://www.schabell.org/2020/09/how-to-setup-openshift-container-platform-45.html">post</a> Eric Schabell provides an easy way to get up and running with CodeReady containers on your own development machine.
+He’s automated most of the process through scripts, and guides you through the rest of the process.
+Eric also shows you how to drop into the Developer console in OCP providing a developer focused view that hides much of the plumbing that is not needed during development.</p>
+<p>In this <a href="https://developers.redhat.com/blog/2020/09/28/call-an-existing-rest-service-with-apache-camel-k/">post</a> Mary Cochran shows us a simple way to connect existing services together using CamelK via each service’s REST APIs.
+Mary gets deep into the details providing code examples and commands to get you up and running.</p>
+<p>Eric Schabell continues his <a href="https://www.schabell.org/2020/09/financial-payments-architecture-an-introduction.html">blog series</a>, bringing you architectural blueprints for&nbsp;cloud-native financial payment services.
+The blueprints are focused on proven interactions, messaging, processing, and integration patterns that you can put to use when building a cloud-native payment architecture.
+This week he covers the <a href="https://www.schabell.org/2020/09/payments-architecture-common-elements.html">Common Architecture Elements</a> that make up the architecture, and gets into some details with the <a href="https://www.schabell.org/2020/09/payments-architecture-immediate-payments-example.html">Immediate Payments Example</a>.</p>
+<p>As is normal for this time of year, the conference season is beginning to kick off.
+Albeit this year in a virtual arena.
+Undoubtedly this is an unfortunate situation for those that enjoy the in-person events.
+However, it’s great for accessibility and reach allowing many more people across to globe to attend.
+DevConf.US 2020 is one such event.
+It’s a free, Red Hat sponsored technology conference for community project and professional contributors to Free and Open Source technologies.
+Read more <a href="https://www.schabell.org/2020/09/devconfus-2020-appdev-containerization-ask-the-experts.html">here</a> where Eric describes the “AppDev &amp; Containerization Ask the Experts” Panels that he and Kurt Stam  will be moderating.</p>
+<p>This week Kapil Shukla explains how to <a href="https://developers.redhat.com/blog/2020/09/28/build-a-data-streaming-pipeline-using-kafka-streams-and-quarkus/">build a data streaming pipeline using Kafka Streams and Quarkus</a>.
+In this post Kapil shows how data can be processed in real-time as and when it arrives, instead of being batch processed as was needed in the past.</p>
+<p>In this <a href="https://developers.redhat.com/blog/2020/09/22/troubleshooting-user-task-errors-in-red-hat-process-automation-manager-and-red-hat-jboss-bpm-suite/">Post</a> Anton Giertli provides help with troubleshooting user task errors in Red Hat Process Automation Manager and Red Hat JBoss BPM Suite.
+If you are a developer working with user tasks and having trouble debugging them, this post might well help you out.</p>
+<p>With the recent release of Apache Camel VS Code extension (0.0.27) comes several new language support features for Apache Camel.
+Read this <a href="https://developers.redhat.com/blog/2020/09/18/new-language-support-features-in-apache-camel-vs-code-extension-0-0-27/">post</a> to learn more.</p>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/paul-robinson.png"></pfe-avatar>
+        <span>Paul Robinson</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Paul Robinson</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/paul-robinson</uri>
+        </author>
+        <category label="jBPM" term="jBPM"/>
+        <category label="OCP" term="OCP"/>
+        <category label="OpenShift" term="OpenShift"/>
+        <category label="Camel" term="Camel"/>
+        <category label="CamelK" term="CamelK"/>
+        <category label="DevConf" term="DevConf"/>
+        <category label="Kafka" term="Kafka"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 16 September 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-09-16.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-09-16.html"/>
+        <updated>2020-09-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="jgroups, quarkus, infinispan">
+      <h1>This Week in JBoss - 16 September 2020</h1>
+      <p>Welcome to another edition of the JBoss Editorial where we gather news from our communities and explore developments from our projects.</p>
+<p>Our very own Mark Little goes into detail to explain Quarkus and Jakarta EE compatibility. Mark gives an insightful breakdown of the history for both projects and answers a much asked question, will Quarkus and Jarkata EE come together? No spoilers here, though. Go read Mark’s <a href="https://developers.redhat.com/blog/2020/09/11/quarkus-and-jakarta-ee-together-or-not/">Quarkus and Jakarta EE: Together, or not?</a> if you already haven’t.</p>
+<p>In the evangelist’s corner, Eric Schabell has brought out an excellent <a href="https://www.schabell.org/2020/09/beginners-guide-to-decision-management-retail-web-shop.html">hands-on workshop with labs</a> for Red Hat Decision Manager that show you how to design and build a retail web shop from scratch.</p>
+<p>Eric also teams up with Ramon Villarreal to bring you architectural blueprints for <a href="https://www.schabell.org/2020/09/financial-payments-architecture-an-introduction.html">cloud-native financial payment services</a>. The blueprints are focused on proven interactions, messaging, processing, and integration patterns that you can put to use when building a cloud-native payment architecture.</p>
+<p>Leon Matthews continues the topic of all things financial with his analysis of the history of Java in the banking sector and the role Quarkus is playing in allowing banks and financial institutions to embrace change, innovate to remain competitive, and become more efficient. Read Leon’s post: <a href="https://www.redhat.com/en/blog/25-years-and-going-strong-why-java-matters-future-banks?source=bloglisting">25 years and going strong: Why Java matters to the future of banks</a>.</p>
+<p>Speaking of Quarkus, Clement Escoffier shows you how to build a stream of beer and then retrieve beers in a reactive way. After walking you through how you can do that with Mutiny, Clement provides a gist with all the code that you can compile and execute with jbang and a single command. You can find everything in his <a href="https://quarkus.io/blog/mutiny-pagination/">Handling paginated APIs with Mutiny</a> post.</p>
+<p>Another post from the Quarkus team that is worth reading is Jeff Beck’s <a href="https://quarkus.io/blog/wipro-customer-story/">Wipro Addresses Seismic Shift in Retail with Quarkus</a>. Jeff shares the Wipro story by describing their needs and challenges and how they adopted Quarkus to modernize their applications and address customer use cases.</p>
+<p>If it hasn’t crossed your radar, Bela Ban shows us his plans for a <a href="http://belaban.blogspot.com/2020/09/one-size-fits-all-jgroups.html">One Size Fits All JGroups</a> program and explains what is needed to get there.</p>
+<p>Jakub Scholz on the Strimzi team shares a post that looks at using the <a href="https://strimzi.io/blog/2020/09/01/enforce-custom-resource-policies-with-opa-gatekeeper/">Open Policy Agent Gatekeeper project to enforce policies when creating custom resources</a> and demonstrates how this is useful. While the post focuses on Strimzi, Jakub points out how Gatekeeper can be used with other projects so go take a look.</p>
+<p>Releases!!</p>
+<p>Congratulations to the Infinispan team for releasing the Dev03 cut of Infinispan 12. Cross-site replication capabilities continue to advance with an SPI that includes configurable policies for merging conflicting values from asynchronous backups, a feature which guarantees data consistency between global Infinispan clusters. That’s no small feat of engineering! Find out about that and more over on the <a href="https://infinispan.org/blog/2020/09/08/infinispan-12/">Infinispan blog</a>.</p>
+<p>Quarkus 1.8 is out with some shiny new features, including jbang integration for easy Quarkus-based scripting, support for multiple persistence units for the Hibernate ORM extension, a new Micrometer extension, and update to GraalVM 20.2 for building native apps from Quarkus projects. Here is the <a href="https://quarkus.io/blog/quarkus-1-8-0-final-released/">announcement with all the info</a>.</p>
+<p>Keycloak have announced their new Account Console, built on React and PatternFly 4. The latest version offers a fresher look and feel with custom themes and extensions. Go <a href="https://www.keycloak.org/2020/09/new-account-console.adoc">check it out</a>.</p>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/don-naro.png"></pfe-avatar>
+        <span>Don Naro</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Don Naro</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/don-naro</uri>
+        </author>
+        <category label="jgroups" term="jgroups"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="infinispan" term="infinispan"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JBoss Weekly Editorial 27 August 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-08-27.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-08-27.html"/>
+        <updated>2020-08-27T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="openshift, openjdk, amq, strimzi, automation, kubernetes, keycloak">
+      <h1>JBoss Weekly Editorial 27 August 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Weekly Editorial!
+Summer is drawing to a close, but that doesn’t mean Red Hat has been resting, or that nothing has been happening over the past two weeks.
+There’s been some great movement and progress made, which we’ll cover.
+In this edition we’re going to focus on OpenShift, the blogosphere, and finally, other project news.</p><p></p>
+<div class="sect1">
+<h2 id="_openshift">OpenShift</h2>
+<div class="sectionbody">
+<p>Last week was KubeCon Europe 2020, which as you can guess, was a big event for OpenShift!
+We had 15 speakers from Red Hat speaking over the three days, giving 17 talks.
+A number of new announcements, blog posts, and articles came out during KubeCon Europe 2020, They’re all liked at <a href="https://www.openshift.com/kubecon">the OpenShift event page</a>.
+There’s simply too many to link here.
+The above event page has videos, press release links, links to other announcements and blogs.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_blogs">Blogs</h2>
+<div class="sectionbody">
+<p>Continuing the trend about OpenShift, Paul Vergilis wrote about external clients and Red Hat AMQ over at the <a href="https://developers.redhat.com/blog/2020/08/26/connecting-external-clients-to-red-hat-amq-broker-on-red-hat-openshift/">Red Hat Developer blog</a>.
+If you’re interested in getting started with Strimzi, Apache Kafka on Kubernetes, you’ll want to catch up on the blog post Paolo Patierno and Jakub Scholz wrote: <a href="https://developers.redhat.com/blog/2020/08/14/introduction-to-strimzi-apache-kafka-on-kubernetes-kubecon-europe-2020/">Introduction to Strimzi: Apache Kafka on Kubernetes (KubeCon Europe 2020)</a>.
+For those of you running OpenJDK 8, you’ll want to know more about JDK Flight Recorder available in OpenJDK 8u262. An indepth intro is available at the <a href="https://developers.redhat.com/blog/2020/08/25/get-started-with-jdk-flight-recorder-in-openjdk-8u/">Red Hat Developer Blog</a> written by Mario Torre.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_projects">Projects</h2>
+<div class="sectionbody">
+<p>To wrap up this edition, we will be looking at two announcements from Keycloak:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.keycloak.org//2020/08/keycloak-1101-released.html">Keycloak 11.0.1 released</a> - fixing seven bugs</p>
+</li>
+<li>
+<p><a href="https://www.keycloak.org//2020/08/sunsetting-louketo-project.adoc.html">Sunsetting Louketo Project</a> - Bruno Oliveira discusses the reasons in this blog post.</p>
+</li>
+</ul>
+</div>
+<p>We’re natuarally happy for a new release and sad for Louketo.</p>
+<p>Thanks for being here with us in this edition!
+We look forward to seeing you again in two weeks.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/jason-porter.png"></pfe-avatar>
+        <span>Jason Porter</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Jason Porter</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/jason-porter</uri>
+        </author>
+        <category label="openshift" term="openshift"/>
+        <category label="openjdk" term="openjdk"/>
+        <category label="amq" term="amq"/>
+        <category label="strimzi" term="strimzi"/>
+        <category label="automation" term="automation"/>
+        <category label="kubernetes" term="kubernetes"/>
+        <category label="keycloak" term="keycloak"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 13 August 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-08-13.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-08-13.html"/>
+        <updated>2020-08-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="jgroups, quarkus, keycloak, skupper, tech talk, infinispan, strimzi">
+      <h1>This Week in JBoss - 13 August 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Editorial where we gather news from our communities and explore developments from our projects.</p><p></p>
+<div class="sect1">
+<h2 id="_jgroups_5">JGroups 5!</h2>
+<div class="sectionbody">
+<p>Exciting news from Bela Ban as <a href="http://belaban.blogspot.com/2020/08/jgroups-500final-released.html">JGroups 5.0.0.Final</a> is released. JGroups 5 brings lots of improvements and some major API changes.</p>
+<p>Perhaps the biggest change is that <a href="http://www.jgroups.org/manual5/index.html#Message"><code>Message</code></a> is now an interface with a number of subclasses that perform late marshalling so object payload is serialized at the point when messages are sent, which eliminates a memory allocation and makes JGroups performance even better.</p>
+<p>Other cool features in JGroups 5 are <a href="http://belaban.blogspot.com/2020/07/double-your-performance-virtual-threads.html">virtual thread support</a>, an implementation of the Random Early Drop (RED) protocol, more efficient FD_ALL3 failure detection, a new protocol to dump stats, and lots more.</p>
+<p>Hearty congratulations to Bela and all the contributors and folks who made it happen!!</p>
+<p>Head over to the <a href="http://www.jgroups.org/manual5/index.html">JGroups 5 documentation</a> and find out more.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keycloak_tech_talk">Keycloak Tech Talk</h2>
+<div class="sectionbody">
+<p>Stian Thorgersen of the Keycloak team presents a DevNation Tech Talk that provides an in-depth look at the best open-source identity and management solution around. Stian gives a great demo of Keycloak that not only highlights features but showcases just how easy it is to integrate and use Keycloak capabilities to secure your applications.</p>
+<p>Spend half an hour and let Stian dazzle you with <a href="https://developers.redhat.com/blog/2020/08/07/a-deep-dive-into-keycloak/">A deep dive into Keycloak</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reactive_quarkus_a_java_mutiny">Reactive Quarkus: A Java Mutiny</h2>
+<div class="sectionbody">
+<p>Another Tech Talk that you should definitely check out comes from Clement Escoffier and Edson Yanaga, who go into detail about Mutiny, a new reactive programming library. Clement and Edson explain why reactive matters, how Mutiny is makes it easier to develop reactive applications, and how the library is integrated with Quarkus.</p>
+<p>Listen to Clement and Edson deliver their excellent talk, <a href="https://developers.redhat.com/blog/2020/08/07/reactive-quarkus-a-java-mutiny/">Reactive Quarkus: A Java Mutiny</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_skupper_and_the_hybrid_cloud">Skupper and the Hybrid Cloud</h2>
+<div class="sectionbody">
+<p>By now I’m sure you’ve heard of <a href="https://skupper.io/">Skupper</a> but maybe have yet to see it in action. Ted Ross gives a great introduction and live demonstration of Skupper across AWS, GCP, and Azure that shows real-time load balancing and fail-over.</p>
+<p>Watch Ted’s <a href="https://developers.redhat.com/blog/2020/08/10/kubernetes-and-the-hybrid-cloud-with-skupper/">Kubernetes and the hybrid cloud with Skupper</a> Tech Talk today. You won’t regret it.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_the_community">In the Community</h2>
+<div class="sectionbody">
+<p>Katia Aresti has created a pretty awesome Infinispan Server tutorial that demonstrates a full set of capabilities with a weather application. Visit the <a href="https://infinispan.org/infinispan-server-tutorial/">Infinispan Remote Weather App Tutorial</a> and try it for yourself.</p>
+<p>Jakub Scholz on the Strimzi team has written a comprehensive blog post, <a href="https://strimzi.io/blog/2020/08/05/using-open-policy-agent-with-strimzi-and-apache-kafka/">Using Open Policy Agent with Strimzi and Apache Kafka</a>, that explores support for Kafka authorization using Open Policy Agent.</p>
+<p>That’s it for this week’s editorial. Thanks for reading and see you next time.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/don-naro.png"></pfe-avatar>
+        <span>Don Naro</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Don Naro</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/don-naro</uri>
+        </author>
+        <category label="jgroups" term="jgroups"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="keycloak" term="keycloak"/>
+        <category label="skupper" term="skupper"/>
+        <category label="tech talk" term="tech talk"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="strimzi" term="strimzi"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 30th July 2020: No rest for the JBoss community!]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-07-30.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-07-30.html"/>
+        <updated>2020-07-30T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="eap, editorial, infinispan, quarkus, jgroups, java, wildfly, clustering, mod_cluster, eclipse, jkube, kubernetes,">
+      <h1>This Week in JBoss - 30th July 2020: No rest for the JBoss community!</h1>
+      
+    <p class="preamble"></p><p>Welcome to another installment of our JBoss Editorial! The last two weeks have been pretty rich on published content and releases, so let’s dive right in!</p><p></p>
+<div class="sect1">
+<h2 id="_from_spring_boot_to_quarkus">From Spring Boot to Quarkus</h2>
+<div class="sectionbody">
+<p>As Quarkus community is increasing the question of how to migrate to this new framework (or rather runtime) often arises. If you happen to have such predicament with Spring Boot, I’m sure you’ll be quite interested to read this article on <a href="https://developers.redhat.com/blog/2020/07/17/migrating-spring-boot-tests-to-quarkus/">migrating Spring Boot tests to Quarkus</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secure_vue_js_with_keycloak">Secure vue.js with Keycloak</h2>
+<div class="sectionbody">
+<p>If most of the content we mentioned today is made of articles, we have one, quite cool video content to share. It’s coming straight from one of the tech-talks of the DevNation and we hope you’ll like it :  <a href="https://developers.redhat.com/devnation/tech-talks/secure-vuejs-keycloak">Secure vue.js using Keycloak</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jgroups_double_your_performance_with_virtual_threads">JGroups: Double your performance with virtual threads!</h2>
+<div class="sectionbody">
+<p>Quite a lot of exciting things are happening in the realm of JGroups lately! Last time, we already mentioned the <a href="http://belaban.blogspot.com/2020/06/new-netty-transport.html">new netty transport</a>, but Bela Ban, the creator of project, got us even more excited with this news about <a href="http://belaban.blogspot.com/2020/07/double-your-performance-virtual-threads.html">how one can double its performance using virtual threads (fibers) on JDK15/16</a>!!! This JDK is still a bit down the road, but its certainly a nice glimpse into tomorrow.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_back_to_the_basics">Back to the Basics</h2>
+<div class="sectionbody">
+<p>As said above, the last two weeks have been particularly rich in interesting content around the JBoss community and the Java ecosystem at large. Some of those articles took the time to go back and rethink some aspects of our work that we take for granted. Let’s first mention this original take on java programming that focuses on <a href="https://developers.redhat.com/blog/2020/07/09/behavior-is-easy-state-is-hard-tame-inconsistent-state-in-your-java-code/">taming inconsistent state in a Java code</a>.</p>
+<p>This first article is already pretty centered around coding, but this next one goes into the very guts of Infinispan! If you know the project, I’m sure you’ll find this entry on <a href="https://infinispan.org/blog/2020/07/22/anchored-keys/">anchored keys</a> as fascinating as I did!</p>
+<p>Let’s also revisit a classic: load balancing a JEE app server (such as Wildfly or its product counterpart JBoss EAP), but with a twist: <a href="https://developers.redhat.com/blog/2020/07/15/load-balancing-red-hat-jboss-enterprise-application-platform-subclusters-with-mod_cluster/">Load balancing Red Hat JBoss EAP with subclusters</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_evangelists_corner">Evangelist’s Corner</h2>
+<div class="sectionbody">
+<p>No rest for the wicked! And no, no rest for our very own Eric D. Schabell! In the last two weeks, he has been quite busy again. First of all, he got his very <a href="https://www.schabell.org/2020/07/what-the-dev-podcast-episode-44-agile-integration.html">first interview on a podcast</a> (yep, that’s right, he was never on a podcast before!). With the host, he discussed the best practices for Agile integration. If you are interested in this topic, fetch the episode, you won’t regret it!</p>
+<p>That’s not all. Eric also took the time to update and release his "fully updated to the latest release" version of his <a href="https://www.schabell.org/2020/07/beginners-guide-building-a-retail-web-shop-workshop-update.html">Beginners guide - Building a retail web shop workshop update</a>.</p>
+<p>On top of that, he took the time to describe <a href="https://www.schabell.org/2020/07/how-to-install-rhpam-77.html">how to How to Install Red Hat Process Automation Manager 7.7</a> and share his experience with the <a href="https://www.schabell.org/2020/07/shift-remote-2020-devops-heroes.html">Shift Remote 2020 online conference</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_releases_releases_releases">Releases, releases, releases,…​</h2>
+<div class="sectionbody">
+<p>As always, the JBoss community has been pretty busy in the last weeks and a few projects have seized the relative quietness of Summer to release new version of their product:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.keycloak.org//2020/07/keycloak-1100-released.html">Keycloak 11.0.0</a></p>
+</li>
+<li>
+<p><a href="http://bytemanblog.blogspot.com/2020/07/byteman-4012-has-been-released.html">Byteman 4.0.12</a></p>
+</li>
+<li>
+<p><a href="https://infinispan.org/blog/2020/07/27/infinispan-12/">Infinispan 12.0.0.Dev01</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decaf">Decaf</h2>
+<div class="sectionbody">
+<p>For once, this section stays rather close to Java, covering how to <a href="https://developers.redhat.com/blog/2020/07/27/deploy-your-java-web-application-into-the-cloud-using-eclipse-jkube/">deploy your Java Webapp into the cloud using Eclipse JKube</a>. So, yes, we’ll talk Kubernetes, but in a context quite close to home :) .</p>
+<p>That’s all for another edition of the JBoss Editorial, please join us again for more exciting development from the JBoss Communities.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/romain-pelisse.png"></pfe-avatar>
+        <span>Romain Pelisse</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Romain Pelisse</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/romain-pelisse</uri>
+        </author>
+        <category label="eap" term="eap"/>
+        <category label="editorial" term="editorial"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="jgroups" term="jgroups"/>
+        <category label="java" term="java"/>
+        <category label="wildfly" term="wildfly"/>
+        <category label="clustering" term="clustering"/>
+        <category label="mod_cluster" term="mod_cluster"/>
+        <category label="eclipse" term="eclipse"/>
+        <category label="jkube" term="jkube"/>
+        <category label="kubernetes" term="kubernetes"/>
+        <category label="" term=""/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 9 July 2020: Over the (j)cliff!]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-07-09.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-07-09.html"/>
+        <updated>2020-07-09T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="quarkus, editorial, infinispan, jgroups, netty, codeready, serverless, microservice, ansible, jcliff, widlfy, eap, eap-xp, microprofile">
+      <h1>This Week in JBoss - 9 July 2020: Over the (j)cliff!</h1>
+      
+    <p class="preamble"></p><p>Welcome to another installment of our JBoss Editorial! Summer has begun, well, at least for those of you readers living in the northern hemisphere :)! So let’s enjoy it by giving some nice, interesting and exciting reading material to enjoy while resting in the sun (with your mask, #staysafe!).</p><p></p>
+<div class="sect1">
+<h2 id="_infinispan_11">Infinispan 11!</h2>
+<div class="sectionbody">
+<p>It’s out! The new major version of Infinispan is here! Please go and check out <a href="https://infinispan.org/blog/2020/07/03/infinispan-11/">Infinispan 11</a>!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jgroups_new_netty_transport">JGroups: new Netty transport!</h2>
+<div class="sectionbody">
+<p>I’ve said it many times, JGroups is an incredible piece of software. The power and the flexibility of the frameworks always dazzle me, so I’m very excited about this <a href="http://belaban.blogspot.com/2020/06/new-netty-transport.html">new netty transport</a> getting into it!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ansible_collection_for_jcliff">Ansible Collection for JCliff</h2>
+<div class="sectionbody">
+<p>It’s a pet project of mine that I have already mentioned a few months ago: Andrew Block, Roel Holzmans and I have been working on integrating further Widlfy (and EAP) into Ansible, in order to ensure that one can use the tool to fine-tune as much as possible the JEE server’s configuration. We leverage an existing Open Source Java tool called <a href="https://github.com/bserdar/jcliff">JCliff</a> to just that.</p>
+<p>Last year, we released a role, already available in <a href="https://galaxy.ansible.com/redhat-cop/jcliff">Ansible Galaxy</a>, to integrate JCliff into Ansible. However, since then, the Ansible community released a new format to distribute extension, called Ansible Collection. We therefore decide to migrate our content there and we finally released, just this week, a very first version: <a href="https://galaxy.ansible.com/redhat/jcliff">Ansible Collection for JCliff 0.0.1</a>.</p>
+<p>So, please check it out! All you need to do is $ ansible-galaxy collection install redhat.jcliff:0.0.1 and, voilà, the collection is installed and you can start to <a href="https://github.com/ansible-middleware/ansible_collections_jcliff_demo">play with it</a>.</p>
+<p>Oh, almost forgot! This release also supports, on tops of Linux, MacOSX with homebrew! (Windows using Chocolatey is coming next).</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_serverless_and_microservice">Serverless and Microservice</h2>
+<div class="sectionbody">
+<p>As alluring as “serverless” is, it does, like any other technology, come with its own challenges. Follow Christina as she goes through the importance of having the proper infrastructure to support your “serverless” apps in this well thought out blog entry: <a href="http://wei-meilin.blogspot.com/2020/07/serverless-integration-components.html">Serverless Integration Components</a></p>
+<p>Follow this first read, you may want to take a look at this other article on <a href="http://www.ofbizian.com/2020/07/operators-and-sidecars-are-new-model.html">operators and sidecars are the new model</a>, which also discuss similar concerns.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_microprofile">Microprofile</h2>
+<div class="sectionbody">
+<p>With the release JBoss EAP XP, there are a lot of opportunities to develop supported microprofile application. So if you want to explore how to develop such an application, please follow <a href="https://developers.redhat.com/blog/author/ehugonne/">Emmanuel Hugonnet</a>’s tutorial on <a href="https://developers.redhat.com/blog/2020/07/01/develop-eclipse-microprofile-applications-on-red-hat-jboss-enterprise-application-platform-expansion-pack-1-0-with-red-hat-codeready-workspaces/">Develop Eclipse MicroProfile applications on Red Hat JBoss Enterprise Application Platform Expansion Pack 1.0 with Red Hat CodeReady Workspaces</a>.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decafquarkus_workshops_automated_with_ansible">Decaf—Quarkus Workshops automated with Ansible</h2>
+<div class="sectionbody">
+<p>Yeah, I know, we just talked about Ansible! Where is my Java stuff you are rightly asking. Well, as you’ll see Ansible, while being Python, plays well with Java software, as demonstrated by this article on <a href="https://developers.redhat.com/blog/2020/07/03/automate-workshop-setup-with-ansible-playbooks-and-codeready-workspaces/">automate workshop setup with Ansible playbooks and CodeReady workspaces</a>.</p>
+<p>That’s all for another edition of the JBoss Editorial, please join us again for more exciting development from the JBoss Communities.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/romain-pelisse.png"></pfe-avatar>
+        <span>Romain Pelisse</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Romain Pelisse</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/romain-pelisse</uri>
+        </author>
+        <category label="quarkus" term="quarkus"/>
+        <category label="editorial" term="editorial"/>
+        <category label="infinispan" term="infinispan"/>
+        <category label="jgroups" term="jgroups"/>
+        <category label="netty" term="netty"/>
+        <category label="codeready" term="codeready"/>
+        <category label="serverless" term="serverless"/>
+        <category label="microservice" term="microservice"/>
+        <category label="ansible" term="ansible"/>
+        <category label="jcliff" term="jcliff"/>
+        <category label="widlfy" term="widlfy"/>
+        <category label="eap" term="eap"/>
+        <category label="eap-xp" term="eap-xp"/>
+        <category label="microprofile" term="microprofile"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss: 26 June 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-06-26.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-06-26.html"/>
+        <updated>2020-06-26T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="quarkus, data grid, camel, editorial,">
+      <h1>This Week in JBoss: 26 June 2020</h1>
+      <p>Here we are, once again at the close of June.
+Another summer has begun, albeit a little different than most.
+I hope everyone is safe, healthy, and doing well.
+There have been some very interesting blogs posted in the past couple of weeks that we’ll discuss in this edition, as well as a few releases.</p>
+<p>Operators in Kubernetes provide an extension point for the platform.
+They follow a pattern allowing you to manage resources and applications within the cluster.
+An operator can be either namespace-scoped or cluster-scoped.
+Did you know, however, that you can convert between the two?
+That is exactly what Abhishek Koserwal details in six steps over on the <a href="https://developers.redhat.com/blog/2020/06/26/migrating-a-namespace-scoped-operator-to-a-cluster-scoped-operator/">Red Hat Developer blog</a>.
+Abhishek walks you through a basic example and provides the full example as a GitHub repo.
+Read the article for more information, and reasons why you may want or need to switch between the different scopes.</p>
+<p>Multitenancy may be something you deal with everyday, or it may be something you’re looking at adding to your current application base.
+Either way, dealing with persistence can be tricky.
+Tenants must not see each other’s data, but be allowed to operate simultaneously.
+Your application must also perform well while still being easy to maintain.
+Rhuan Rocha has started a two part series on how to use JPA with Multitenancy over on the Red Hat Developer blog.
+<a href="https://developers.redhat.com/blog/2020/06/15/jakarta-ee-multitenancy-with-jpa-on-wildfly-part-1/">The first entry</a> details the problem and presents a possible solution using WildFly and EJBs.
+Expect the next installment to look more at Hibernate and JPA solutions.</p>
+<p>Effortlessly building a native application is of course, one of the amazing capabilities of Quarkus.
+However, when it comes to debugging, a native Quarkus application makes debugging <strong>very</strong> difficult.
+A large part of this is the optimizations that happen to create that quick, small, native binary.
+This debugging complication hasn’t gone unnoticed.
+Andrew Dinn has been working on this problem.
+He contributed a solution where the debug information is embedded with in the native image and can be access with <code>gdb</code>.
+If you’d like to learn more about the solution, <a href="https://developers.redhat.com/blog/2020/06/25/debugging-graalvm-native-images-using-gdb/">read Andrew’s blog entry</a>.</p>
+<p>Continuing with the Quarkus theme, Durgesh Anaokar wrote about <a href="https://developers.redhat.com/blog/2020/06/19/develop-and-test-a-quarkus-client-on-red-hat-codeready-containers-with-red-hat-data-grid-8-0/">developing and testing a Quarkus Red Hat Data Grid client using Red Hat CodeReady Containers</a>.
+Durgesh details installing CRC (Red Hat Code Ready Containers) and Data Grid on OpenShift 4 as well as running the client.
+Naturally, his project code is hosted in GitHub, you’ll find that link in his blog entry.</p>
+<p>Red Hat now has images, Universal Base Images to be exact, of OpenJDK (8 and 11) in Red Hat Enterprise Linux 8.2.
+A Universal Base Image (UBI) is an OCI-compliant container base OS image with runtime and language support that can be used as the base for Docker images and Podman/Buildah images.
+These will allow you to deploy and build supportable applications on Red Hat OpenShift and RHEL.
+It also includes a number of additional user-space packages over a base UBI.
+Read more about this <a href="https://developers.redhat.com/blog/2020/06/25/introducing-the-red-hat-build-of-the-openjdk-universal-base-images-now-in-red-hat-enterprise-linux-8-2/">over at Red Hat Developers</a>.</p>
+<p>If you have been following, you’ll know the Infinispan team has been hard at work on Infinispan 11.
+They are proud to announce that <a href="https://infinispan.org/blog/2020/06/15/infinispan-11/">Inifinspan 11.0.0. Final has been released</a>!
+A number of improvements and features have been added to this release including clustering, CLI, Hot Rod Client improvements, non-blocking internals, and others.</p>
+<p>Along with that new Infinispan release, you can now deploy a <a href="https://infinispan.org/blog/2020/06/16/native-server-announce/">natively compiled version of the Infinispan server</a>!
+The memory footprint is only 286MB.
+There are also native Quarkus extensions for your Quarkus based applications.</p>
+<p>Not to be left out of the cloud native party, Apache Camel is <a href="https://developers.redhat.com/blog/2020/06/18/camel-k-1-0-the-serverless-integration-platform-goes-ga/">announcing the GA release of Apache Camel K 1.0</a>.
+This release includes tooling, connectors, and integrations with Knative.
+This is a great step forward for doing integrations with a small footprint.</p>
+<p>Lastly, <a href="https://developers.redhat.com/blog/2020/06/17/red-hat-jboss-enterprise-application-platform-expansion-pack-1-0-released/">Red Hat JBoss Enterprise Application Platform Expansion Pack 1.0</a> was recently released.
+This is a patch that adds MicroProfile capabilities to JBoss EAP.
+There are some policy changes you will need to be aware of, but you find links to all of thosewithin the announcement.</p>
+<p>Thanks again for being with us on another JBoss Editorial!</p>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/jason-porter.png"></pfe-avatar>
+        <span>Jason Porter</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Jason Porter</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/jason-porter</uri>
+        </author>
+        <category label="quarkus" term="quarkus"/>
+        <category label="data grid" term="data grid"/>
+        <category label="camel" term="camel"/>
+        <category label="editorial" term="editorial"/>
+        <category label="" term=""/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss - 11 June 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-06-11.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-06-11.html"/>
+        <updated>2020-06-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="quarkus, kogito, sso, infinispan">
+      <h1>This Week in JBoss - 11 June 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome to another edition of the JBoss Editorial where we gather news from our communities and explore developments from our projects.</p><p></p>
+<div class="sect1">
+<h2 id="_mandrel">Mandrel</h2>
+<div class="sectionbody">
+<p>There has been some exciting
+<a href="https://developers.redhat.com/blog/2020/06/05/mandrel-a-community-distribution-of-graalvm-for-the-red-hat-build-of-quarkus/">news about Mandrel</a>.
+You’ve likely heard of this by now but, in his announcement post, Mark explains how Red Hat has worked
+with the GraalVM community to create a distribution of OpenJDK with GraalVM’s native-image
+capabilities for producing native executables.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ai_vs_covid_19">AI vs COVID-19</h2>
+<div class="sectionbody">
+<p><a href="https://developers.redhat.com/blog/2020/06/09/ai-vs-covid-19-how-java-helps-nurses-and-doctors-in-this-fight/">A recent DevNation Tech Talk</a> with
+a very topical subject looks at how OptaPlanner has helped keep medical staff and patients safer with advanced planning algorithms.
+It’s nice to see Java play a role in improving things for those who are at the front lines of the pandemic.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_the_community">In the Community</h2>
+<div class="sectionbody">
+<p>Eric Schnabell keeps his Cloud-native development series going with a look at
+<a href="https://www.schabell.org/2020/06/cloud-native-development-on-remote-containers.html">example use cases for using remote container platforms as development environments</a>.</p>
+<p>The Infinispan blog has seen a flurry of activity in the run up to the 11.0.0.Final release, which
+should be available real soon now. In the meantime, you can read about some of the things that will be
+available in Infinispan 11 here:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>William Burns <a href="https://infinispan.org/blog/2020/06/09/offheap-resize/">shares some enhancements to Infinispan’s Off Heap implementation</a>
+that simplify configuration and improve performance.</p>
+</li>
+<li>
+<p>Pedro Ruivo <a href="https://infinispan.org/blog/2020/06/05/xsite-improvements/">explains how Infinispan uses vector clocks</a>
+to detect conflicts with asynchronous cross-site replication as well as the strategy for resolving conflicts.</p>
+</li>
+</ul>
+</div>
+<p>Over at the Strimzi blog, there is <a href="https://strimzi.io/blog/2020/06/09/mirror-maker-2-eventhub/">another installment of the series around Mirror Maker</a>.
+Check out the post for mirroring to Azure Event Hub using Mirror Maker 2.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release_roundup">Release Roundup</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://quarkus.io/blog/quarkus-1-5-final-released/">Quarkus 1.5.0.Final has arrived</a>, which brings a fast-jar packaging format along with several new extensions.</p>
+</li>
+<li>
+<p><a href="https://wildfly.org/news/2020/06/08/WildFly20-Final-Released/">WildFly 20 has been released</a> with numerous bug fixes and updates.</p>
+</li>
+<li>
+<p><a href="https://www.keycloak.org//2020/06/keycloak-1002-released.html">Keycloak 10.0.2 is here</a>. Read all about it.</p>
+</li>
+</ul>
+</div>
+<p>That’s it for this week’s editorial. Thanks for reading and see you next time.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/don-naro.png"></pfe-avatar>
+        <span>Don Naro</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Don Naro</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/don-naro</uri>
+        </author>
+        <category label="quarkus" term="quarkus"/>
+        <category label="kogito" term="kogito"/>
+        <category label="sso" term="sso"/>
+        <category label="infinispan" term="infinispan"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JBoss Weekly Editorial 29 May 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-05-29.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-05-29.html"/>
+        <updated>2020-05-29T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="infinispan, teiid, quarkus">
+      <h1>JBoss Weekly Editorial 29 May 2020</h1>
+      
+    <p class="preamble"></p><p>Welcome back!
+Things keep rolling along for us within Middleware at Red Hat.
+We have a couple of new releases and some blogs to talk about this week, so let’s dig in.</p><p></p>
+<div class="sect1">
+<h2 id="_releases">Releases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://infinispan.org/blog/2020/05/25/infinispan-11/">Infinispan 11.0.0.0.CR1</a> - This CR release sees non-blocking internal changes, a non-blocking Store SPI, slight modifications to clustering scaling, better/more server security, CLI, kubernetes/OpenShift operator, and an update to documentation!</p>
+</li>
+<li>
+<p><a href="https://github.com/quarkusio/quarkus/milestone/68?closed=1">Quarkus 1.5.0.Final</a> - The milestoe is done and the artifacts are in Maven Central. There are a few things left to do to offically announce the release, but all the coding is done. The link here is to the GitHub milestone for a list of issues completed.</p>
+</li>
+<li>
+<p><a href="https://teiid.blogspot.com/2020/05/teiid-spring-boot-150-released.html">Teiid Spring Boot 1.5.0</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_blogs">Blogs</h2>
+<div class="sectionbody">
+<p>To go along with the Infinispan release, a couple of new blog posts have come out:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://infinispan.org/blog/2020/05/28/cli/">CLI enhancements</a></p>
+</li>
+<li>
+<p><a href="https://infinispan.org/blog/2020/05/26/hotrod-uri/">Hot Rod URI</a>, so you can connect via Hot Rod the same way you would a JDBC datastore.</p>
+</li>
+</ul>
+</div>
+<p>Eric Schabell has a couple of entries into his Cloud-native development series:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.schabell.org/2020/05/cloud-native-development-a-blueprint.html">A Blueprint</a></p>
+</li>
+<li>
+<p><a href="https://www.schabell.org/2020/05/cloud-native-development-common-architectural-elements.html">Common Architectural Elements</a></p>
+</li>
+</ul>
+</div>
+<p>There is also an entry called <a href="https://www.schabell.org/2020/05/reality-bites-3-misconceptions-can-lead-to-micorservice-mayhem-slides.html">Reality Bites: 3 misconceptions that can lead to microservice mayhem</a> discussing pitfalls to avoid while working with Microservices</p>
+<p>Lastly, we want to cover episodes 2, 3, and 4 of the Quarkus Insights video podcast.
+Episode 2 covers <code>quarkus:dev</code> and Command mode.
+Episode 3 discusses Hibernate and Panache.
+The most recent one, episode 4, talks about JHipster for Quarkus.
+You can find these video pod casts at <a href="https://www.youtube.com/playlist?list=PLsM3ZE5tGAVZ5p_CTx5YPLdMbyjlzfj8y">YouTube</a> or the audio on Apple Podcasts and Spotify.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/jason-porter.png"></pfe-avatar>
+        <span>Jason Porter</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Jason Porter</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/jason-porter</uri>
+        </author>
+        <category label="infinispan" term="infinispan"/>
+        <category label="teiid" term="teiid"/>
+        <category label="quarkus" term="quarkus"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JBoss Weekly Editorial 14 May 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-05-14.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-05-14.html"/>
+        <updated>2020-05-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="event-driven, codeready-containers, keycloak, devnation">
+      <h1>JBoss Weekly Editorial 14 May 2020</h1>
+      
+    <p class="preamble"></p><p>We’re a little light on the news this time, but those of us who have been reading the editorial for a few years will be familiar with the "after Summit slump."
+With Red Hat Summit behind us (and what a great Summit, check out the sessions on demand if you missed them), many people have taken PTO.
+Expect all the news, blogs, releases, etc. to pick back up in the coming weeks.</p>
+<p>All that being said, we do have some blogs to go over and one release.</p><p></p>
+<div class="sect1">
+<h2 id="_blogs">Blogs</h2>
+<div class="sectionbody">
+<p>First up is Eric Schabell’s second entry in his "Demystifying the Event Driven Architecture - Making the case" series.
+You can read more about it <a href="https://www.schabell.org/2020/05/demystifying-event-driven-architecture-making-the-case.html">at his blog</a>.</p>
+<p>We have another post by Eric: <a href="https://www.schabell.org/2020/05/code-ready-containers-installing-hr-employee-rewards-project.html">Code Ready Containers - Installing an HR employee rewards project using developer container catalog</a>.
+For more information about CodeReady Containers, please visit the <a href="https://developers.redhat.com/products/codeready-containers/overview">Red Hat Developer page</a>.</p>
+<p>There are a number of DevNation Tech Talks and master courses dropping within the next week, please visit the <a href="https://developers.redhat.com/devnation/">DevNation page</a> for more information.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_releases">Releases</h2>
+<div class="sectionbody">
+<p>Keycloak released a new version: <a href="https://www.keycloak.org//2020/05/keycloak-1001-released.html">Keycloak 10.0.1</a>.</p>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/jason-porter.png"></pfe-avatar>
+        <span>Jason Porter</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Jason Porter</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/jason-porter</uri>
+        </author>
+        <category label="event-driven" term="event-driven"/>
+        <category label="codeready-containers" term="codeready-containers"/>
+        <category label="keycloak" term="keycloak"/>
+        <category label="devnation" term="devnation"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[This Week in JBoss: 1 May 2020]]></title>
+        <id>https://www.jboss.org/posts/weekly-2020-05-01.html</id>
+        <link href="https://www.jboss.org/posts/weekly-2020-05-01.html"/>
+        <updated>2020-05-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+      <article class="" data-tags="summit, virtual, quarkus, kogito">
+      <h1>This Week in JBoss: 1 May 2020</h1>
+      
+    <p class="preamble"></p><div class="imageblock">
+<div class="content">
+<a class="image" href="https://www.redhat.com/en/summit"><img src="/img/posts/rh-summit-banner.png" alt="rh summit banner"></a>
+</div>
+</div><p></p>
+<div class="sect1">
+<h2 id="_2020_04_30_the_virtual_red_hat_summit_week">[2020-04-30] - The Virtual Red Hat Summit week</h2>
+<div class="sectionbody">
+<p>I’m writing this as we wrap up another successful Red Hat Summit.
+But this year, with a significant distinction: the event was 100%
+virtual. Despite the involuntary move to virtual, there were many
+benefits that came about from the change in format. The event was
+completely free, and of course required no travel, allowing a much
+broader and more diverse set of attendees to benefit from the
+content and experience. It was also ran in three regions to
+accommodate many more timezones.</p>
+<p>Being Red Hat we were keen to experiment with the format and find
+new ways to engage with the community. It was important for us to
+carry over as much of the personality and intimacy of the physical
+event as possible. So, this needed to be more than just a bunch of
+streamed talks. The talks were pre-recorded which allowed the
+presenter(s) to participate directly in the Q&amp;A in real-time
+as the talk proceeded. There was also a variety of sessions that
+went beyond the talk format. For examples see
+<em>Ask the experts</em>, <em>Networking social hour</em>, and
+the <em>Virtual Open Neighborhood</em> on the
+<a href="https://www.redhat.com/en/summit/agenda/agenda-at-a-glance">agenda</a>.</p>
+<p>If you weren’t able to attend, or want to catch some of the
+talks you missed, you can <a href="https://onlinexperiences.com/Launch/QReg.htm?ShowUUID=4245E6E3-7D25-496D-9B08-4CBDC87CCE74">re-live the virtual event here</a>.</p>
+<p><strong>In other news…​</strong></p>
+<div class="sect2">
+<h3 id="_quarkus_insights_on_youtube_live">Quarkus Insights on Youtube live</h3>
+<p>This week Max Andersen and Emmanuel Bernard <a href="https://quarkus.io/blog/insights/">kicked off a new video/podcast series</a>
+bringing insights into Quarkus. Each episode will focus on a
+guest speaker discussing the development or usage of Quarkus.
+There are also some dedicated Q&amp;A sessions planned. Be sure
+to subscribe to the <a href="https://www.youtube.com/c/quarkusio">Quarkus YouTube channel</a>
+to catch these sessions and other exciting Quarkus content.
+In particular <a href="https://www.youtube.com/watch?v=OCPFdpvL1Q0&amp;feature=youtu.be">join them on the 4th of May</a>
+where Georgios Andrianakis will talk about Quarkus testing
+and specifically the new mocking improvements in the recently
+released Quarkus 1.4.</p>
+</div>
+<div class="sect2">
+<h3 id="_kogito_a_modular_codegen_design_proposal">Kogito: A Modular Codegen Design Proposal</h3>
+<p>In <a href="https://planet.jboss.org/post/kogito_a_modular_codegen_design_proposal">this post</a>
+Edoardo Vacchi explains how Kogito is improving performance
+by moving processing out of the run-time and into build-time.</p>
+</div>
+<div class="sect2">
+<h3 id="_red_hat_summit_2020_ask_the_experts_hybrid_multicloud_pitfalls">Red Hat Summit 2020 - Ask the Experts: Hybrid Multicloud Pitfalls</h3>
+<p>In one of the many <em>Ask the Experts</em> sessions,
+Eric Schabell &amp; Roel Hodzelmans focused on their hybrid
+multi-cloud pitfall theories. You can
+<a href="https://planet.jboss.org/post/red_hat_summit_2020_ask_the_experts_hybrid_multicloud_pitfalls_slides">view the slides here</a>,
+or <a href="https://onlinexperiences.com/Launch/QReg.htm?ShowUUID=4245E6E3-7D25-496D-9B08-4CBDC87CCE74">register for the Red Hat Summit Virtual event</a>
+to re-watch the content on demand.</p>
+</div>
+<div class="sect2">
+<h3 id="_free_book_on_knative_covering_camel_k_and_kafka_and_upcoming_webinar_with_live_demos">Free book on Knative covering Camel K and Kafka and upcoming webinar with live demos</h3>
+<p>In this post Claus Ibsen <a href="https://planet.jboss.org/post/free_book_on_knative_covering_camel_k_and_kafka_and_upcoming_webinar_with_live_demos">alerts us to the free eBook</a>
+written by Burr Sutter &amp; Kamesh Sampath on the subject of Knative. Go get your
+free copy <a href="https://developers.redhat.com/books/knative-cookbook/">here</a>!</p>
+</div>
+<div class="sect2">
+<h3 id="_red_hat_summit_2020_business_automation_sessions">Red Hat Summit 2020 - Business Automation Sessions</h3>
+<p>If you are interested in the area of <em>Business Automation</em>, be sure to view Kris
+Verlaenen’s <a href="https://planet.jboss.org/post/virtual_red_hat_summit_2020_april_28_29">helpful summary</a>
+of all the BI related talks held at Red Hat Summit.</p>
+</div>
+<div class="sect2">
+<h3 id="_demystifying_the_event_driven_architecture_an_introduction_part_1">Demystifying the Event Driven Architecture - An introduction (part 1)</h3>
+<p>Eric Schabell has <a href="https://planet.jboss.org/post/demystifying_the_event_driven_architecture_an_introduction_part_1">started a new blog series</a>
+that explores the world of Event Driven Architectures (EDA).</p>
+</div>
+<div class="sect2">
+<h3 id="_six_reasons_why_you_will_love_camel_k">Six reasons why you will love Camel K</h3>
+<p>Interested in Camel K, or want to find out what all the fuss is about?
+<a href="https://planet.jboss.org/post/six_reasons_why_you_will_love_camel_k">Read on</a>,
+and Christina will give you six reasons to love Camel K.</p>
+</div>
+<div class="sect2">
+<h3 id="_hybrid_clouds_with_jgroups_and_skupper">Hybrid clouds with JGroups and Skupper</h3>
+<p>Bela Ban follows up on his post explaining how to
+<a href="http://belaban.blogspot.com/2019/12/spanning-jgroups-kubernetes-based.html">span JGroups Kubernetes-based clusters across Google and Amazon clouds</a>.
+In <a href="https://planet.jboss.org/post/hybrid_clouds_with_jgroups_and_skupper">this new post</a>
+Bela improves on the process by using <a href="https://skupper.io/">Skupper</a> to simplify this
+task and encrypt the data exchanged between different clouds.</p>
+</div>
+<div class="sect2">
+<h3 id="_this_weeks_releases">This Week’s Releases</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://quarkus.io/blog/quarkus-1-4-final-released/">Quarkus 1.4</a>. Command mode, HTTP 2, New FaaS framework, Mocking, and more.</p>
+</li>
+<li>
+<p><a href="https://www.keycloak.org//2020/04/keycloak-1000-released.html">Keycloak 10.0.0</a>.
+With <em>Identity Brokering Sync Mode</em>, <em>Client Session Timeout for OpenID Connect / OAuth 2.0</em>
+and much more.</p>
+</li>
+<li>
+<p><a href="https://planet.jboss.org/post/kogito_0_9_1_released">Kogito 0.9.1</a>. This release
+is a bug fix release, but there has also been considerable work spent on
+documentation and code examples. See the link for detais.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+      
+      <div class="author">
+        <pfe-avatar pfe-shape="circle" pfe-pattern="squares" pfe-src="/img/people/paul-robinson.png"></pfe-avatar>
+        <span>Paul Robinson</span>
+    
+      </div></article>
+  ]]></content>
+        <author>
+            <name>Paul Robinson</name>
+            <email>do-not-reply@jboss.com</email>
+            <uri>https://www.jboss.org/people/paul-robinson</uri>
+        </author>
+        <category label="summit" term="summit"/>
+        <category label="virtual" term="virtual"/>
+        <category label="quarkus" term="quarkus"/>
+        <category label="kogito" term="kogito"/>
+    </entry>
+</feed>
